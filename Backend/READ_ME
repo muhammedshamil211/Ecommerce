@@ -1,0 +1,76 @@
+# E-Commerce Backend Authentication System
+
+## Overview
+
+This project implements a production-ready authentication system using:
+
+- Node.js
+- Express.js
+- MongoDB
+- ES6 Modules
+- JWT (Access + Refresh Token Architecture)
+
+The system follows MVC architecture and includes multiple security layers.
+
+---
+
+## Features
+
+### Authentication
+- User Registration
+- User Login
+- Access Token (15 minutes)
+- Refresh Token (7 days)
+- Secure Logout
+
+### Security Layers
+- Input Validation (express-validator)
+- Global Rate Limiting
+- Login Rate Limiting
+- Account Locking after failed attempts
+- Password Hashing using bcrypt
+- httpOnly Cookie protection
+- Role-based Authorization (User/Admin)
+
+---
+
+## JWT Architecture
+
+### Access Token
+- Short-lived (15m)
+- Sent in JSON response
+- Used for protected routes
+
+### Refresh Token
+- Long-lived (7d)
+- Stored in httpOnly cookie
+- Used to generate new access tokens
+
+---
+
+## Technologies Used
+
+- Node.js
+- Express.js
+- MongoDB
+- Mongoose
+- bcryptjs
+- jsonwebtoken
+- cookie-parser
+- express-validator
+- express-rate-limit
+
+---
+
+## Security Highlights
+
+- Stateless authentication
+- Protection against brute-force attacks
+- IP rate limiting
+- Account-level locking
+- Secure password hashing
+- XSS-resistant cookie handling
+
+---
+
+## Folder Structure
