@@ -3,6 +3,7 @@ import { User } from "lucide-react";
 import styles from "./ProfileDropdown.module.css";
 import { logout } from "../../services/api";
 import { AppContext } from "../../context/AppContext";
+import { Link } from "react-router-dom";
 
 const ProfileDropdown = ({
     onProfileClick
@@ -29,7 +30,7 @@ const ProfileDropdown = ({
                     <button className={styles.login} onClick={onProfileClick}>Login/Signup</button>
                 </div>
                     : <div className={styles.header}>
-                        <h4>Hello {user.user.name}</h4>
+                        <h4>Hello {user.user.name.toUpperCase()}</h4>
                         <p>{user.user.email}</p>
                     </div>}
 
@@ -54,7 +55,8 @@ const ProfileDropdown = ({
                 <div className={styles.divider}></div>
 
                 <ul className={styles.menu}>
-                    <li>Edit Profile</li>
+                    <li><Link to='/profile'>Edit Profile</Link></li>
+                    <li><Link to='/addItems'>Add Items</Link></li>
                     <li onClick={async () => {
                         await logout();
                         setUser(null);

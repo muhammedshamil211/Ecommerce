@@ -3,6 +3,7 @@ import styles from './Login.module.css'
 import { AppContext } from '../../context/AppContext'
 import { login } from '../../services/api'
 import CloseButton from '../../components/closeButton/CloseButton'
+import { useNavigate, Link, useLocation } from 'react-router-dom'
 
 export default function Login({ onSuccess, setAuthView }) {
     const { setUser } = useContext(AppContext)
@@ -10,6 +11,8 @@ export default function Login({ onSuccess, setAuthView }) {
     const [password, setPassword] = useState('')
     const [error, setError] = useState(null)
     const [loading, setLoading] = useState(false)
+    const navigate = useNavigate();
+    const location = useLocation();
 
     const handleSubmit = async e => {
         e.preventDefault()
@@ -18,12 +21,21 @@ export default function Login({ onSuccess, setAuthView }) {
         setLoading(true)
         try {
             const userData = await login({ email, password })
+
+            if (!userData.success) {
+                const text = await userData.text();
+                throw new error(text);
+            }
             setUser(userData)
             setLoading(false)
-            if (onSuccess) onSuccess(userData)
+            localStorage.setItem("user", JSON.stringify(userData));
+            const from = location.state?.from || "/";
+            navigate(from, { replace: true });
+            // if (onSuccess) onSuccess(userData)
         } catch (err) {
             setLoading(false)
             setError(err.message || 'Login failed')
+            console.log(err);
         }
     }
 
@@ -31,8 +43,8 @@ export default function Login({ onSuccess, setAuthView }) {
         <div className={styles.container}>
             <form className={styles.form} onSubmit={handleSubmit} aria-label="login form">
                 <h2 className={styles.title}>Sign in</h2>
-                <CloseButton    
-                    onClick={onSuccess}
+                <CloseButton
+                    onClick={() => navigate(-1)}
                     variant='dark'
                 />
                 {error && <div className={styles.error}>{error}</div>}
@@ -63,7 +75,7 @@ export default function Login({ onSuccess, setAuthView }) {
 
                 <div className={styles.switchRow}>
                     Don't have an account?
-                    <span onClick={setAuthView}>Create an account</span>
+                    <Link to="/signup">Create an account</Link>
                 </div>
             </form>
         </div>

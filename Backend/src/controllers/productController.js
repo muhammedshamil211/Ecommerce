@@ -4,6 +4,7 @@ import Product from "../model/Product.js";
 // Add products only  logged user can only add products
 export const addProduct = async (req, res) => {
     try {
+        console.log("I am here");
         const product = await Product.create({
             ...req.body,
             owner: req.user.id,
@@ -15,6 +16,7 @@ export const addProduct = async (req, res) => {
             product
         });
     } catch (err) {
+        console.error("ADD PRODUCT ERROR:", err);
         res.status(500).json({
             success: false,
             message: "Server errror"
@@ -86,7 +88,30 @@ export const viewAll = async (req, res) => {
         });
     }
 }
+export const getProductData = async (req, res) => {
+    try {
+        const id = req.params.id;
+        const product = await Product.findById(id);
 
+        if (!product) {
+            return res.status(404).json({
+                success: false,
+                message: "product not found"
+            });
+        }
+
+        res.status(200).json({
+            success: true,
+            message: "Success",
+            product
+        });
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: error
+        });
+    }
+}
 export const getMyProduct = async (req, res) => {
     try {
         const products = await Product.find({
@@ -133,8 +158,8 @@ export const recentProducts = async (req, res) => {
     } catch (error) {
         console.log(error);
         res.status(500).json({
-            success:false,
-            message:"Failed to fetch recent products"
+            success: false,
+            message: "Failed to fetch recent products"
         });
     }
 }
@@ -165,8 +190,8 @@ export const mostVisitedProducts = async (req, res) => {
     } catch (error) {
         console.log(error);
         res.status(500).json({
-            success:false,
-            message:"Failed to fetch most viewed products"
+            success: false,
+            message: "Failed to fetch most viewed products"
         });
     }
 }
@@ -174,34 +199,34 @@ export const mostVisitedProducts = async (req, res) => {
 
 
 export const getByCategory = async (req, res) => {
-  try {
-    const { category } = req.params;
+    try {
+        const { category } = req.params;
 
-    const page = parseInt(req.query.page) || 1;
-    const limit = parseInt(req.query.limit) || 10;
-    const skip = (page - 1) * limit;
+        const page = parseInt(req.query.page) || 1;
+        const limit = parseInt(req.query.limit) || 10;
+        const skip = (page - 1) * limit;
 
-    const products = await Product.find({ category })
-      .sort({ createdAt: -1 })
-      .skip(skip)
-      .limit(limit)
-      .select("-likedBy");
+        const products = await Product.find({ category })
+            .sort({ createdAt: -1 })
+            .skip(skip)
+            .limit(limit)
+            .select("-likedBy");
 
-    const total = await Product.countDocuments({ category });
+        const total = await Product.countDocuments({ category });
 
-    res.status(200).json({
-      success: true,
-      category,
-      page,
-      totalPages: Math.ceil(total / limit),
-      totalProducts: total,
-      products,
-    });
+        res.status(200).json({
+            success: true,
+            category,
+            page,
+            totalPages: Math.ceil(total / limit),
+            totalProducts: total,
+            products,
+        });
 
-  } catch (error) {
-    res.status(500).json({
-      success: false,
-      message: "Error fetching category products",
-    });
-  }
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: "Error fetching category products",
+        });
+    }
 };

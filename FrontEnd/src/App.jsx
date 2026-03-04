@@ -1,49 +1,38 @@
-import React, { useContext, useState } from 'react'
-import Header from './components/Header/Header'
-import Footer from './components/Footer'
+import React, { useContext, useEffect } from 'react'
+import { Routes, Route } from 'react-router-dom'
+import Layout from './Layout/Layout'
 import Home from './pages/Home/Home'
-import About from './pages/About'
 import Login from './pages/Login/Login'
 import Signup from './pages/Signup/Signup'
+import AuthPage from './pages/AuthPage/AuthPage'
+import AddItems from './pages/AddItems/AddItems'
+import ProtectedRoutes from './ProtectedRoutes/ProtectedRoutes'
+import Profile from './pages/Profile/Profile'
 import { AppContext } from './context/AppContext'
-
+import Category from './pages/Category/Category'
 
 export default function App() {
-  const { user, setUser } = useContext(AppContext)
-  const [showAuth, setShowAuth] = useState(false)
-  const [authView, setAuthView] = useState('login')
+  const { setUser, setLoading } = useContext(AppContext);
+  useEffect(() => {
+    const savedUser = JSON.parse(localStorage.getItem("user"));
 
- const handleProfileClick = () => {
-  if (!user) {
-    setAuthView('login')
-    setShowAuth(true)
-  }
-}
-
-
-  const handleAuthSuccess = () => {
-    setShowAuth(false)
-    setAuthView('login')
-  }
-
+    if (savedUser) {
+      setUser(savedUser);
+    }
+    setLoading(false);
+  }, []);
   return (
-    <div className="app-root">
-      <Header onProfileClick={handleProfileClick} user={user} />
-      <main className="container">
-        {showAuth ? (
-          authView === 'login' ? (
-            <Login onSuccess={handleAuthSuccess} setAuthView={()=>setAuthView("signup")} />
-          ) : (
-            <Signup onSuccess={handleAuthSuccess} setAuthView={()=>setAuthView("login")}/>
-          )
-        ) : (
-          <>
-            <Home />
-            <About />
-          </>
-        )}
-      </main>
-      <Footer />
-    </div>
+    <Routes>
+      <Route element={<Layout />}>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/auth" element={<AuthPage />} />
+        <Route path="/addItems" element={<ProtectedRoutes><AddItems /></ProtectedRoutes>} />
+        <Route path='/profile' element={<ProtectedRoutes><Profile /></ProtectedRoutes>} />
+        <Route path='editItems/:id' element={<ProtectedRoutes><AddItems/></ProtectedRoutes>}/>
+        <Route path='/product/:category' element={<Category/>}></Route>
+      </Route>
+    </Routes>
   )
 }

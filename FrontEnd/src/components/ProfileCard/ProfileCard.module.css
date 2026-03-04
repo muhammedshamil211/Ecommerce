@@ -1,0 +1,107 @@
+/* --- Fluid & Responsive Profile Card --- */
+
+.profile {
+    background-color: rgb(243, 243, 243);
+    border: 1px solid rgb(221, 221, 221);
+    border-radius: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    /* Fluid Padding: Scales between 1rem (mobile) and 2rem (desktop) */
+    padding: clamp(1rem, 3vw, 2rem);
+
+    /* Fluid Gap: Prevents items from getting too cramped before they wrap */
+    gap: clamp(1rem, 2.5vw, 2rem);
+}
+
+.profilePic {
+    background-color: rgb(7, 42, 117);
+    color: white;
+    font-weight: 600;
+    box-shadow: 3px 4px 4px rgba(0, 0, 0, 0.2);
+    border-radius: 50%;
+    flex-shrink: 0;
+    /* Prevents the circle from squishing */
+
+    /* Fluid Font Size: Scales between 18px and 28px */
+    font-size: clamp(1.125rem, 3vw, 1.75rem);
+
+    /* Replaced uneven padding with fixed fluid dimensions so it stays a perfect circle */
+    width: clamp(60px, 8vw, 80px);
+    height: clamp(60px, 8vw, 80px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.details {
+    display: flex;
+    align-items: center;
+    color: gray;
+    flex-grow: 1;
+    /* Takes up the middle space */
+
+    /* Fluid gap between avatar/details if any */
+    gap: clamp(0.5rem, 1.5vw, 1rem);
+}
+
+.details input {
+    background-color: transparent;
+    outline: none;
+    border: none;
+    color: rgb(103, 103, 103);
+    width: 100%;
+    min-width: 0;
+    /* Prevents flex blowout on small screens */
+
+    /* Fluid Font Size: Scales between 16px and 20px */
+    font-size: clamp(1rem, 2.5vw, 1.25rem);
+}
+
+.action {
+    flex-shrink: 0;
+}
+
+.action button {
+    border-radius: 1.2rem;
+    border: 1px solid gray;
+    cursor: pointer;
+    background-color: white;
+    transition: background-color 0.2s ease;
+
+    /* Fluid Font Size */
+    font-size: clamp(0.875rem, 1.5vw, 1rem);
+
+    /* Fluid Padding: Top/Bottom and Left/Right scale independently */
+    padding: clamp(0.5rem, 1.5vw, 0.7rem) clamp(1.2rem, 3vw, 2rem);
+}
+
+.action button:hover {
+    background-color: rgb(230, 230, 230);
+}
+
+/* --- Mobile Breakpoint (Stack Everything Vertically) --- */
+
+@media (max-width: 600px) {
+    .profile {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .details {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .details input {
+        text-align: center;
+        /* Center the input text on mobile */
+    }
+
+    .action,
+    .action button {
+        width: 100%;
+        /* Make the button span the whole width for easier tapping */
+    }
+}

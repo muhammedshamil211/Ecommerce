@@ -1,0 +1,128 @@
+.formContainer {
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: rgb(240, 240, 240);
+    border-radius: 1rem;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid rgb(206, 206, 206);
+    padding: 2rem;
+}
+
+.header {
+    margin-bottom: 2.5rem;
+    border-bottom: 1px solid rgb(130, 130, 130);
+    padding-bottom: 1.5rem;
+}
+
+.header h2 {
+    font-size: 2rem;
+    color: rgb(0, 162, 255);
+    margin-bottom: 0.5rem;
+}
+
+.header p {
+    color: rgb(163, 163, 163);
+    font-size: 1.05rem;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.formGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.formGroup label {
+    font-weight: 600;
+    color: rgb(88, 88, 88);
+    font-size: 0.95rem;
+}
+
+.formGroup input,
+.formGroup select,
+.formGroup textarea {
+    padding: 0.875rem 1rem;
+    border: 1px solid rgb(206, 206, 206);
+    border-radius: 1rem;
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    font-size: 1rem;
+}
+
+.formGroup input:focus,
+.formGroup select:focus,
+.formGroup textarea:focus {
+    outline: none;
+    border-color: rgb(206, 206, 206);
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+}
+
+.actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1.25rem;
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid gray;
+}
+
+.submitBtn,
+.cancelBtn {
+    padding: 0.75rem 1.75rem;
+    border-radius: 1rem;
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+.submitBtn {
+    background-color: rgb(0, 162, 255);
+    color: white;
+    border: none;
+}
+
+.submitBtn:hover:not(:disabled) {
+    background-color: lightblue;
+    transform: translateY(-1px);
+}
+
+.submitBtn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+.cancelBtn {
+    background-color: transparent;
+    color: rgb(91, 91, 91);
+    border: 1px solid gray;
+}
+
+.cancelBtn:hover:not(:disabled) {
+    background-color: rgb(255, 132, 132);
+    color: white;
+}
+
+@media (max-width: 640px) {
+    .formContainer {
+        padding: 2rem 1.5rem;
+    }
+
+    .actions {
+        flex-direction: column;
+    }
+
+    .submitBtn,
+    .cancelBtn {
+        width: 100%;
+    }
+}

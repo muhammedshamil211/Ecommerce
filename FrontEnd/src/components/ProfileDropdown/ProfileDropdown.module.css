@@ -38,6 +38,10 @@
     z-index: 1000;
 }
 
+.dropdown a {
+    color: #282c3f;
+}
+
 /* Show on hover */
 .wrapper:hover .dropdown {
     display: block;

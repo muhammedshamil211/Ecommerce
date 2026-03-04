@@ -18,6 +18,6 @@ export const generateRefreshToken = (user) => {
             role: user.role,
         },
         process.env.JWT_REFRESH_SECRET,
-        {expiresIn:'7d'}
+        { expiresIn: '7d' }
     );
 };

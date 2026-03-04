@@ -29,13 +29,13 @@ export const registerUser = async (req, res) => {
 
         res.cookie("refreshToken", refreshToken, {
             httpOnly: true,
-            secure: true,
+            secure: process.env.NODE_ENV === "production",
             sameSite: "strict",
             maxAge: 7 * 24 * 60 * 60 * 1000,
         });
 
         res.status(201).json({
-            success:true,
+            success: true,
             message: "User registered successfully",
             user,
             accessToken
@@ -43,8 +43,8 @@ export const registerUser = async (req, res) => {
 
     } catch (error) {
         res.status(500).json({
-            success:false,
-            message: error.message 
+            success: false,
+            message: error.message
         });
     }
 };
@@ -60,13 +60,14 @@ export const loginUser = async (req, res) => {
 
         if (!user) {
             return res.status(401).json({
-                success:false,
-                message: "Invalid email or password" });
+                success: false,
+                message: "Invalid email or password"
+            });
         }
 
         if (user.lockUntil && user.lockUntil > Date.now()) {
             return res.status(403).json({
-                success:false,
+                success: false,
                 message: "Account is locked,try again later",
             });
         }
@@ -88,8 +89,9 @@ export const loginUser = async (req, res) => {
             }
 
             return res.status(401).json({
-                success:false,
-                message: "Invalid password" });
+                success: false,
+                message: "Invalid password"
+            });
         }
 
         user.loginAttempts = 0;
@@ -101,13 +103,13 @@ export const loginUser = async (req, res) => {
 
         res.cookie("refreshToken", refreshToken, {
             httpOnly: true,
-            secure: true,
+            secure: process.env.NODE_ENV === "production",
             sameSite: "strict",
             maxAge: 7 * 24 * 60 * 60 * 1000,
         });
 
         res.status(200).json({
-            success:true,
+            success: true,
             user,
             message: "Login successful",
             accessToken,
@@ -115,26 +117,30 @@ export const loginUser = async (req, res) => {
 
     } catch (error) {
         res.status(500).json({
-            success:false,
-            message: error.message });
+            success: false,
+            message: error.message
+        });
     }
 };
+
 
 export const refreshAccessToken = (req, res) => {
     try {
         const token = req.cookies.refreshToken;
 
         if (!token) {
-            return res.status(401).json({ 
-                success:false,
-                message: "No refresh token" });
+            return res.status(401).json({
+                success: false,
+                message: "No refresh token"
+            });
         }
 
         jwt.verify(token, process.env.JWT_REFRESH_SECRET, (err, decoded) => {
             if (err) {
-                return res.status(403).json({ 
-                    success:false,
-                    message: "Invalid refresh token" });
+                return res.status(403).json({
+                    success: false,
+                    message: "Invalid refresh token"
+                });
             }
 
             const newAccessToken = jwt.sign(
@@ -144,19 +150,22 @@ export const refreshAccessToken = (req, res) => {
             );
 
             res.status(200).json({
-                success:true,
-                accessToken: newAccessToken });
+                success: true,
+                accessToken: newAccessToken
+            });
         });
     } catch (error) {
         res.status(500).json({
-            success:false,
-            message: error.message });
+            success: false,
+            message: error.message
+        });
     }
 };
 
 export const logoutUser = (req, res) => {
     res.clearCookie("refreshToken");
     res.json({
-        success:true,
-        message: "Logged out successfully" });
+        success: true,
+        message: "Logged out successfully"
+    });
 };

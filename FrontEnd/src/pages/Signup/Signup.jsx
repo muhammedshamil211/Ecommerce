@@ -3,6 +3,7 @@ import styles from './Signup.module.css'
 import { AppContext } from '../../context/AppContext'
 import { signup } from '../../services/api'
 import CloseButton from '../../components/closeButton/CloseButton'
+import { useNavigate, Link } from 'react-router-dom'
 
 export default function Signup({ onSuccess, setAuthView }) {
     const { setUser } = useContext(AppContext)
@@ -11,6 +12,7 @@ export default function Signup({ onSuccess, setAuthView }) {
     const [password, setPassword] = useState('')
     const [error, setError] = useState(null)
     const [loading, setLoading] = useState(false)
+    const navigate = useNavigate();
 
     const handleSubmit = async e => {
         e.preventDefault()
@@ -21,7 +23,7 @@ export default function Signup({ onSuccess, setAuthView }) {
             const userData = await signup({ name, email, password })
             setUser(userData)
             setLoading(false)
-            if (onSuccess) onSuccess(userData)
+            navigate(-1);
         } catch (err) {
             setLoading(false)
             setError(err.msg || err.message || 'Signup failed')
@@ -33,7 +35,7 @@ export default function Signup({ onSuccess, setAuthView }) {
             <form className={styles.form} onSubmit={handleSubmit} aria-label="signup form">
                 <h2 className={styles.title}>Create account</h2>
                 <CloseButton
-                    onClick={onSuccess}
+                    onClick={() => navigate(-2)}
                     variant='dark'
                 />
                 {error && <div className={styles.error}>{error}</div>}
@@ -74,7 +76,7 @@ export default function Signup({ onSuccess, setAuthView }) {
 
                 <div className={styles.switchRow}>
                     Already have an account?
-                    <span onClick={setAuthView}>Sign in</span>
+                    <Link to="/login">Sign in</Link>
                 </div>
             </form>
         </div>
