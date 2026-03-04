@@ -264,3 +264,11 @@ button.statItem:hover {
 button.statItem:active .heartIcon {
     transform: scale(1.3);
 }
+
+.heartIcon {
+  transition: all 0.2s ease;
+}
+
+.statItem:hover .heartIcon {
+  transform: scale(1.2);
+}

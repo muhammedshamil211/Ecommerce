@@ -35,7 +35,7 @@ export default function Header({ onProfileClick, user }) {
             user={user}
           />
 
-          <button type="button" className={styles.action} aria-label="Wishlist">
+          <button type="button" className={styles.action} aria-label="Wishlist" onClick={()=>navigate("/product/wishlist")}>
             <Heart className={styles.actionIcon} />
             <span className={styles.actionLabel}>Wishlist</span>
           </button>

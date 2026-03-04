@@ -77,7 +77,7 @@ export default function AddItems() {
 
         try {
             const imagesArray = typeof formData.images === 'string' && formData.images.trim() !== ''
-                ? formData.images.split('---,').map(url => url.trim()).filter(url => url)
+                ? formData.images.split(',-,').map(url => url.trim()).filter(url => url)
                 : [];
 
             const payload = {

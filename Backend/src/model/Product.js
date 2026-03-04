@@ -39,7 +39,7 @@ const productSchema = new mongoose.Schema(
             default: 0,
         },
 
-        likedBy: [
+        likes: [
             {
                 type: mongoose.Schema.Types.ObjectId,
                 ref: "User",

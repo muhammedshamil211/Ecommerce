@@ -1,4 +1,5 @@
 import Product from "../model/Product.js";
+import mongoose from "mongoose";
 
 
 // Add products only  logged user can only add products
@@ -72,7 +73,7 @@ export const deleteProduct = async (req, res) => {
 
 export const viewAll = async (req, res) => {
     try {
-        const products = await Product.find();
+        const products = await Product.find().populate("owner", "_id name");
 
         res.status(200).json({
             success: true,
@@ -90,8 +91,12 @@ export const viewAll = async (req, res) => {
 }
 export const getProductData = async (req, res) => {
     try {
-        const id = req.params.id;
-        const product = await Product.findById(id);
+        const { id } = req.params;
+        const product = await Product.findByIdAndUpdate(
+            id,
+            { $inc: { views: 1 } },
+            { returnDocument: 'after' }
+        ).populate("owner", "_id name email createdAt");
 
         if (!product) {
             return res.status(404).json({
@@ -116,7 +121,7 @@ export const getMyProduct = async (req, res) => {
     try {
         const products = await Product.find({
             owner: req.user.id
-        }).sort({ ceatedAt: -1 });
+        }).sort({ ceatedAt: -1 }).populate("owner", "_id name");
 
         res.status(200).json({
             success: true,
@@ -144,7 +149,7 @@ export const recentProducts = async (req, res) => {
             .sort({ createdAt: -1 })
             .skip(skip)
             .limit(limit)
-            .select("-likedBy");
+            .select("-likedBy").populate("owner", "_id name");
 
         const total = await Product.countDocuments();
 
@@ -176,7 +181,7 @@ export const mostVisitedProducts = async (req, res) => {
             .sort({ views: -1 })
             .skip(skip)
             .limit(limit)
-            .select("-likedBy");
+            .select("-likedBy").populate("owner", "_id name");
 
         const total = await Product.countDocuments();
 
@@ -210,7 +215,7 @@ export const getByCategory = async (req, res) => {
             .sort({ createdAt: -1 })
             .skip(skip)
             .limit(limit)
-            .select("-likedBy");
+            .select("-likedBy").populate("owner", "_id name");
 
         const total = await Product.countDocuments({ category });
 
@@ -221,12 +226,73 @@ export const getByCategory = async (req, res) => {
             totalPages: Math.ceil(total / limit),
             totalProducts: total,
             products,
+            message: "Iam here for u"
         });
 
     } catch (error) {
         res.status(500).json({
             success: false,
             message: "Error fetching category products",
+        });
+    }
+};
+
+
+export const likeCount = async (req, res) => {
+    try {
+        const userId = req.user.id;
+        const product = await Product.findById(req.params.id);
+
+        if (!product) {
+            return res.status(404).json({
+                success: false,
+                message: "Product not found"
+            });
+        }
+
+        const alreadyLiked = product.likes.includes(userId);
+
+        if (alreadyLiked) {
+            product.likes.pull(userId);
+        } else {
+            product.likes.push(userId);
+        }
+
+        await product.save();
+
+        res.status(200).json({
+            success: true,
+            liked: !alreadyLiked,
+            likeCount: product.likes.length
+        });
+    } catch (error) {
+        res.status(500).json({
+            success: false
+        });
+    }
+}
+
+
+
+export const wishlist = async (req, res) => {
+    try {
+        const products = await Product.find({
+            likes: req.user.id
+        }).populate("owner", "_id name");
+
+        res.status(200).json({
+            success: true,
+            message: "trueeeeeeee",
+            products
+        });
+
+    } catch (error) {
+
+        console.error(error);
+
+        res.status(500).json({
+            success: false,
+            message: "Failed to fetch wishlist"
         });
     }
 };

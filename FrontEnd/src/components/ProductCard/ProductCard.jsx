@@ -1,23 +1,40 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import styles from './ProductCard.module.css';
 import { AppContext } from '../../context/AppContext';
 import { Delete, Edit2, IndianRupee, Trash2 } from 'lucide-react';
-import { deleteItem } from '../../services/api';
+import { deleteItem, toggleLike } from '../../services/api';
 
 const ProductCard = ({ product }) => {
     const { user } = useContext(AppContext);
     const location = useLocation();
     const navigate = useNavigate();
+    const [liked, setLiked] = useState(product.likes?.includes(user?.user?._id));
+    const [likeCount, setLikeCount] = useState(product.likes?.length || 0);
 
     const isProfilePage = location.pathname.includes("/profile");
 
-    const isOwner = user?.user?._id === product.owner ? true : false;
+    const isOwner = user?.user?._id === product.owner._id ? true : false;
     const showButton = isProfilePage && isOwner;
 
     const handleEditClick = (e) => {
         e.preventDefault();
         navigate(`/editItems/${product._id}`);
+    }
+
+    const handleLike = async (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        try {
+            const res = await toggleLike(user.accessToken, product._id);
+
+            if (res.success) {
+                setLikeCount(res.likeCount);
+                setLiked(res.liked);
+            }
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     const handleDeleteClick = async (e) => {
@@ -44,7 +61,7 @@ const ProductCard = ({ product }) => {
     return (
         <div className={styles.card}>
             <div className={styles.imageWrapper}>
-                <Link to={`/product/${product._id}`} className={styles.imageContainer}>
+                <Link to={`/productDetails/${product._id}`} className={styles.imageContainer}>
                     <img
                         src={product.images && product.images.length > 0 ? product.images[0] : 'https://placehold.co/400x400?text=No+Image'}
                         alt={product.title}
@@ -69,7 +86,7 @@ const ProductCard = ({ product }) => {
             </div>
 
             <div className={styles.content}>
-                <Link to={`/product/${product._id}`} className={styles.titleWrapper}>
+                <Link to={`/productDetails/${product._id}`} className={styles.titleWrapper}>
                     <h3 className={styles.title} title={product.title}>{product.title}</h3>
                 </Link>
 
@@ -98,11 +115,11 @@ const ProductCard = ({ product }) => {
                     </div>
 
                     <div className={styles.stats}>
-                        <button className={styles.statItem} onClick={(e) => { e.preventDefault(); onLike(product._id); }}>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={styles.heartIcon}>
+                        <button className={styles.statItem} onClick={handleLike}>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill={liked ? "red" : "none"} stroke="currentColor" color={liked ? "red" : "black"} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={styles.heartIcon}>
                                 <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
                             </svg>
-                            <span>{product.likeCount}</span>
+                            <span>{likeCount}</span>
                         </button>
                     </div>
                 </div>

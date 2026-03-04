@@ -141,7 +141,14 @@ export const recentItems = async (page = 1, limit = 10) => {
   })
 }
 
-export const categoryItem = async (category,page = 1,limit = 10) => {
+export const mostViewedItems = async (page = 1, limit = 10) => {
+  return fetchJSON(itemBaseURI, `/mostViewed?page=${page}&limit=${limit}`, {
+    method: "POST",
+    headers: { 'Content-Type': 'application/json' }
+  })
+}
+
+export const categoryItem = async (category, page = 1, limit = 10) => {
   return fetchJSON(itemBaseURI, `/${category}`, {
     method: "POST",
     headers: { 'Content-Type': 'application/json' }
@@ -152,6 +159,26 @@ export const categoryItem = async (category,page = 1,limit = 10) => {
 export const fetchProductData = async (id) => {
   return fetchJSON(itemBaseURI, `/edit/${id}`, {
     method: "POST",
-    headers: { 'Content-Type': 'application/json' }
+    headers: {
+      'Content-Type': 'application/json'
+    }
   });
+}
+
+
+export const toggleLike = async (accessToken, id) => {
+  return fetchJSON(itemBaseURI, `/like/${id}`, {
+    method: "POST",
+    headers: { 'Content-Type': 'application/json',
+      "Authorization": `Bearer ${accessToken}` }
+  });
+}
+
+
+export const getWishList = async (accessToken) => {
+  return fetchJSON(itemBaseURI, '/user/wishlist', {
+    method: "POST",
+    headers: { 'Content-Type': 'application/json',
+      "Authorization": `Bearer ${accessToken}` }
+  })
 }

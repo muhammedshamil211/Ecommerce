@@ -10,6 +10,8 @@ import ProtectedRoutes from './ProtectedRoutes/ProtectedRoutes'
 import Profile from './pages/Profile/Profile'
 import { AppContext } from './context/AppContext'
 import Category from './pages/Category/Category'
+import ProductDetails from './pages/ProductDetails/ProductDetails'
+import WishList from './pages/WishList/WishList'
 
 export default function App() {
   const { setUser, setLoading } = useContext(AppContext);
@@ -32,6 +34,8 @@ export default function App() {
         <Route path='/profile' element={<ProtectedRoutes><Profile /></ProtectedRoutes>} />
         <Route path='editItems/:id' element={<ProtectedRoutes><AddItems/></ProtectedRoutes>}/>
         <Route path='/product/:category' element={<Category/>}></Route>
+        <Route path='/productDetails/:id' element={<ProductDetails/>}></Route>
+        <Route path='/product/wishlist' element={<ProtectedRoutes><WishList/></ProtectedRoutes>}></Route>
       </Route>
     </Routes>
   )

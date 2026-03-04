@@ -3,6 +3,7 @@ import styles from './Home.module.css'
 import landing from '../../assets/landing.png'
 import AllItems from '../AllItems/AllItems'
 import RecentItems from '../RecentItem/RecentItems'
+import MostViewItems from '../MostView/MostViewItems'
 
 export default function Home() {
   return (
@@ -13,6 +14,7 @@ export default function Home() {
       {/* <hr /> */}
       <AllItems />
       <RecentItems />
+      <MostViewItems />
     </section>
   )
 }
