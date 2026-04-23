@@ -1,19 +1,3 @@
-.container {
-    /* max-width: 1200px;
-    width: 100%;
-    margin-inline: auto;
-
-    display: flex;
-    flex-direction: column; */
-
-    /* Fluid spacing */
-    /* gap: clamp(1rem, 2vw, 2.5rem); */
-    /* padding: clamp(0.75rem, 3vw, 2rem); */
-}
-
-/* ============================= */
-/* HEADING */
-/* ============================= */
 .head {
     font-size: clamp(1.25rem, 2.5vw, 1.75rem);
     font-weight: 700;
@@ -43,58 +27,34 @@
 }
 
 .seper {
-    width: 90%;
-}
-
-
-
-/* ============================= */
-/* GRID */
-/* ============================= */
-/* --- THE MAIN GRID --- */
-.grid {
-    display: grid;
     width: 100%;
-    max-width: 1600px;
-    /* Wide enough to let 6 cards breathe */
-    margin: 0 auto;
-    padding: 1rem;
-
-    /* Default: 2 columns for Mobile Devices */
-    grid-template-columns: repeat(2, 1fr);
-
-    /* Small gap for mobile to save space */
-    gap: 0.75rem;
+    margin: 1rem 0;
+    opacity: 0.2;
 }
 
-/* ========================= */
-/* TABLET (3 columns)        */
-/* ========================= */
-@media (min-width: 600px) {
-    .grid {
-        grid-template-columns: repeat(5, 1fr);
-        gap: 1rem;
+@media (max-width: 768px) {
+    .head {
+        font-size: 1.4rem;
+        padding-left: 0.5rem;
     }
 }
 
-/* ========================= */
-/* SMALL DESKTOP (4 columns) */
-/* ========================= */
-@media (min-width: 900px) {
-    .grid {
-        grid-template-columns: repeat(5, 1fr);
-        gap: 1.25rem;
-        padding: 1.5rem;
+@media (max-width: 480px) {
+    .head {
+        font-size: 1.2rem;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+
+    .sub {
+        font-size: 0.85rem;
+        padding-left: 0.5rem;
     }
 }
 
-/* ========================= */
-/* BIG SCREEN (6 columns)    */
-/* ========================= */
-@media (min-width: 1280px) {
-    .grid {
-        grid-template-columns: repeat(5, 1fr);
-        gap: 1.5rem;
-        padding: 2rem;
+@media (max-width: 368px) {
+    .head {
+        font-size: 1.1rem;
     }
 }

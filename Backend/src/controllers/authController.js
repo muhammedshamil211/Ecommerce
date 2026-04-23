@@ -123,6 +123,31 @@ export const loginUser = async (req, res) => {
     }
 };
 
+export const editUser = async (req, res) => {
+  try {
+
+    const updates = {};
+
+    if (req.body.name) updates.name = req.body.name;
+    if (req.body.phone) updates.phoneNumber = req.body.phone;
+    if (req.body.avathar) updates.avathar = req.body.avathar;
+    if(req.body.address) updates.address = req.body.address;
+
+    const updatedUser = await User.findByIdAndUpdate(
+      req.user.id,
+      updates,
+      { returnDocument:"after",runValidators:true}
+    );
+
+    res.json({
+      success: true,
+      user: updatedUser
+    });
+
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
 
 export const refreshAccessToken = (req, res) => {
     try {

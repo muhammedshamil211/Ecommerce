@@ -1,107 +1,187 @@
-/* --- Fluid & Responsive Profile Card --- */
+.card {
+    background: white;
+    border-radius: 18px;
 
-.profile {
-    background-color: rgb(243, 243, 243);
-    border: 1px solid rgb(221, 221, 221);
-    border-radius: 1rem;
+    padding: clamp(1.2rem, 3vw, 2rem);
+
+    border: 1px solid #eee;
+
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    flex-direction: column;
+    gap: 1.6rem;
 
-    /* Fluid Padding: Scales between 1rem (mobile) and 2rem (desktop) */
-    padding: clamp(1rem, 3vw, 2rem);
-
-    /* Fluid Gap: Prevents items from getting too cramped before they wrap */
-    gap: clamp(1rem, 2.5vw, 2rem);
+    transition: all .25s ease;
 }
 
-.profilePic {
-    background-color: rgb(7, 42, 117);
-    color: white;
-    font-weight: 600;
-    box-shadow: 3px 4px 4px rgba(0, 0, 0, 0.2);
+.card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.12);
+}
+
+/* PROFILE TOP */
+
+.profileTop {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+}
+
+/* AVATAR */
+
+.avatar {
+    width: 70px;
+    height: 70px;
+
     border-radius: 50%;
-    flex-shrink: 0;
-    /* Prevents the circle from squishing */
 
-    /* Fluid Font Size: Scales between 18px and 28px */
-    font-size: clamp(1.125rem, 3vw, 1.75rem);
+    background: linear-gradient(135deg, #0066ff, #008cff);
 
-    /* Replaced uneven padding with fixed fluid dimensions so it stays a perfect circle */
-    width: clamp(60px, 8vw, 80px);
-    height: clamp(60px, 8vw, 80px);
     display: flex;
+    align-items: center;
     justify-content: center;
-    align-items: center;
+
+    font-size: 1.6rem;
+    font-weight: 600;
+
+    color: white;
+
+    overflow: hidden;
+
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
 }
 
-.details {
-    display: flex;
-    align-items: center;
-    color: gray;
-    flex-grow: 1;
-    /* Takes up the middle space */
-
-    /* Fluid gap between avatar/details if any */
-    gap: clamp(0.5rem, 1.5vw, 1rem);
-}
-
-.details input {
-    background-color: transparent;
-    outline: none;
-    border: none;
-    color: rgb(103, 103, 103);
+.avatar img {
     width: 100%;
-    min-width: 0;
-    /* Prevents flex blowout on small screens */
-
-    /* Fluid Font Size: Scales between 16px and 20px */
-    font-size: clamp(1rem, 2.5vw, 1.25rem);
+    height: 100%;
+    object-fit: cover;
 }
 
-.action {
-    flex-shrink: 0;
+/* PROFILE INFO */
+
+.profileInfo {
+    flex: 1;
 }
 
-.action button {
-    border-radius: 1.2rem;
-    border: 1px solid gray;
+.profileInfo h2 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin: 0;
+}
+
+.email {
+    font-size: 0.9rem;
+    color: #6b7280;
+}
+
+.since {
+    font-size: 0.8rem;
+    color: #9ca3af;
+}
+
+/* EDIT BUTTON */
+
+.editBtn {
+    border: none;
+
+    background: linear-gradient(135deg, #0066ff, #008cff);
+
+    color: white;
+
+    padding: .55rem 1.3rem;
+
+    border-radius: 999px;
+
+    font-size: .9rem;
+
     cursor: pointer;
-    background-color: white;
-    transition: background-color 0.2s ease;
 
-    /* Fluid Font Size */
-    font-size: clamp(0.875rem, 1.5vw, 1rem);
-
-    /* Fluid Padding: Top/Bottom and Left/Right scale independently */
-    padding: clamp(0.5rem, 1.5vw, 0.7rem) clamp(1.2rem, 3vw, 2rem);
+    transition: all .2s ease;
 }
 
-.action button:hover {
-    background-color: rgb(230, 230, 230);
+.editBtn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px rgba(0, 102, 255, 0.25);
 }
 
-/* --- Mobile Breakpoint (Stack Everything Vertically) --- */
+/* ADDRESS */
 
-@media (max-width: 600px) {
-    .profile {
+.addressSection {
+
+    background: #f9fafb;
+
+    border-radius: 12px;
+
+    padding: 1rem 1.2rem;
+
+    border: 1px solid #eee;
+
+}
+
+.addressSection h3 {
+    font-size: .9rem;
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+
+.addressSection p {
+    font-size: .9rem;
+    color: #6b7280;
+    margin: 2px 0;
+}
+
+.empty {
+    color: #9ca3af;
+}
+
+/* STATS */
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+}
+
+.stat {
+
+    background: #f7f7f7;
+
+    padding: 1rem;
+
+    border-radius: 12px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.stat span {
+    font-size: .8rem;
+    color: #6b7280;
+}
+
+.stat p {
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:700px) {
+
+    .profileTop {
         flex-direction: column;
-        text-align: center;
+        align-items: flex-start;
     }
 
-    .details {
-        flex-direction: column;
+    .editBtn {
         width: 100%;
+        margin-top: .5rem;
     }
 
-    .details input {
-        text-align: center;
-        /* Center the input text on mobile */
+    .stats {
+        grid-template-columns: 1fr;
     }
 
-    .action,
-    .action button {
-        width: 100%;
-        /* Make the button span the whole width for easier tapping */
-    }
 }

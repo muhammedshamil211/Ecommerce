@@ -1,60 +1,30 @@
-import React, { useEffect, useState } from 'react'
-import { allItems } from '../../services/api';
+import React, { useContext} from 'react'
 import styles from './AllItems.module.css'
-import ProductCard from '../../components/ProductCard/ProductCard';
+import ProductGrid from '../../components/ProductGrid/ProductGrid';
+import { AppContext } from '../../context/AppContext';
 
 export default function AllItems() {
 
-    const [products, setProducts] = useState([]);
-    const [loading, setLoading] = useState(false);
-
-    useEffect(() => {
-
-        const fetchProducts = async () => {
-            try {
-                setLoading(true);
-
-                const res = await allItems();
-
-                if (res.success) {
-                    setProducts(res.products || []);
-                }
-
-            } catch (error) {
-                console.log("Fetch products error:", error);
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        fetchProducts();
-
-    }, []);
+    const { allProduct,loading } = useContext(AppContext);
+    console.log(allProduct);
 
     return (
         <div className={styles.containe}>
 
             <p className={styles.head}>
-                All items <span>{products.length}</span>
+                All items <span>{allProduct.length}</span>
             </p>
             <p className={styles.sub}>Explore all products</p>
             <hr className={styles.seper} />
 
-            {loading && <p>Loading...</p>}
-
-            {!loading && products.length === 0 && (
-                <p>No products available</p>
+            {!loading && allProduct.length === 0 && (
+                <div className={styles.noProducts}>No products available</div>
             )}
-
-            <div className={styles.grid}>
-                {products.map((item) => (
-                    <ProductCard
-                        key={item._id}
-                        product={item}
-                    />
-                ))}
-            </div>
-
+            
+            <ProductGrid
+                products={allProduct}
+                loading={loading}
+            />
         </div>
     )
 }

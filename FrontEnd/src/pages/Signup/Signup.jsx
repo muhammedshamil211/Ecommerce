@@ -21,9 +21,10 @@ export default function Signup({ onSuccess, setAuthView }) {
         setLoading(true)
         try {
             const userData = await signup({ name, email, password })
-            setUser(userData)
+            setUser({user:userData.user,accessToken:userData.accessToken});
+            localStorage.setItem("user",JSON.stringify({user:userData.user,accessToken:userData.accessToken}));
             setLoading(false)
-            navigate(-1);
+            navigate(-2);
         } catch (err) {
             setLoading(false)
             setError(err.msg || err.message || 'Signup failed')

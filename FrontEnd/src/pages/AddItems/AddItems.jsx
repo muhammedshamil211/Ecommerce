@@ -144,7 +144,7 @@ export default function AddItems() {
                 </div>
 
                 <div className={styles.formGroup}>
-                    <label htmlFor="images">Image URLs (comma separated)</label>
+                    <label htmlFor="images">Image URLs (,-, please add this in between URLs)</label>
                     <input
                         type="text"
                         id="images"

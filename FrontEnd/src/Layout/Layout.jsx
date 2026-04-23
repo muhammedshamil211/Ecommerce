@@ -1,24 +1,31 @@
 import React, { useContext } from 'react'
-import { Outlet, useNavigate } from 'react-router-dom'
+import { Outlet, useLocation, useNavigate } from 'react-router-dom'
 import Header from '../components/Header/Header'
 import Footer from '../components/Footer'
 import styles from './Layout.module.css'
 import { AppContext } from '../context/AppContext'
-import { PlusCircle, PlusCircleIcon, PlusIcon } from 'lucide-react'
+import { Plus } from 'lucide-react'
 
 export default function Layout() {
     const { user } = useContext(AppContext)
-    const navigate = useNavigate()
+    const navigate = useNavigate();
+
+    const location = useLocation();
+    console.log(location?.pathname);
 
     return (
         <div className={styles.layoutContainer}>
             <Header user={user} />
-            <div
-                className={styles.add}
-                onClick={() => navigate("/addItems")}
-            >
-                <PlusCircleIcon size={44} />
-            </div>
+            {location?.pathname !== ("/addItems" || "/login" || "signup") && user && (
+                <div
+                    className={styles.add}
+                    onClick={() => navigate("/addItems")}
+                >
+                    <Plus className={styles.icon} size={22} />
+                    <span className={styles.text}>Add Item</span>
+                </div>
+            )}
+
 
             <main className={styles.mainContent}>
                 <Outlet />

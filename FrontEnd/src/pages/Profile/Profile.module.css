@@ -1,4 +1,4 @@
-.container {
+.container1 {
     max-width: 1200px;
     width: 100%;
     margin-inline: auto;
@@ -10,7 +10,23 @@
     gap: clamp(1rem, 2vw, 2.5rem);
     padding: clamp(0.75rem, 3vw, 2rem);
 }
+.backButton {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: none;
+    border: none;
+    color: #6b7280;
+    font-weight: 500;
+    cursor: pointer;
+    padding: 0;
+    margin-bottom: 1.5rem;
+    transition: color 0.2s;
+}
 
+.backButton:hover {
+    color: #111827;
+}
 /* ============================= */
 /* HEADING */
 /* ============================= */
@@ -18,11 +34,11 @@
     font-size: clamp(1.25rem, 2.5vw, 1.75rem);
     font-weight: 700;
     line-height: 1.2;
-
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     gap: 0.75rem;
+    margin: 0;
 }
 
 .heading span {
@@ -36,53 +52,109 @@
     font-weight: 500;
 }
 
-/* ============================= */
-/* GRID */
-/* ============================= */
-/* --- THE MAIN GRID --- */
-.grid {
-    display: grid;
+.search {
+    display: flex;
+    flex: 1;
+    max-width: 650px;
+    background: #f3f4f6;
+    border-radius: 8px;
+    padding: 4px;
+    transition: all 0.2s ease;
+    border: 1px solid transparent;
+    margin: 0;
+}
+
+/* Modern focus ring effect for search */
+.search:focus-within {
+    background: #ffffff;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+}
+
+.search input {
+    border: none;
+    background: transparent;
+    padding: 8px 16px;
     width: 100%;
-    max-width: 1600px;
-    /* Wide enough to let 6 cards breathe */
-    margin: 0 auto;
-    padding: 1rem;
-
-    /* Default: 2 columns for Mobile Devices */
-    grid-template-columns: repeat(2, 1fr);
-
-    /* Small gap for mobile to save space */
-    gap: 0.75rem;
+    outline: none;
+    font-size: 0.95rem;
+    color: #1f2937;
 }
 
-/* ========================= */
-/* TABLET (3 columns)        */
-/* ========================= */
-@media (min-width: 600px) {
-    .grid {
-        grid-template-columns: repeat(4, 1fr);
-        gap: 1rem;
-    }
+.search input::placeholder {
+    color: #9ca3af;
 }
 
-/* ========================= */
-/* SMALL DESKTOP (4 columns) */
-/* ========================= */
-@media (min-width: 900px) {
-    .grid {
-        grid-template-columns: repeat(4, 1fr);
-        gap: 1.25rem;
+.searchButton {
+    background: #2563eb;
+    color: #ffffff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    transition: background 0.2s;
+}
+
+.searchButton:hover {
+    background: #1d4ed8;
+}
+
+@media (max-width: 1024px) {
+    .container1 {
         padding: 1.5rem;
     }
 }
 
-/* ========================= */
-/* BIG SCREEN (6 columns)    */
-/* ========================= */
-@media (min-width: 1280px) {
-    .grid {
-        grid-template-columns: repeat(4, 1fr);
+@media (max-width: 768px) {
+    .container1 {
+        padding: 1rem;
         gap: 1.5rem;
-        padding: 2rem;
+    }
+
+    .heading {
+        font-size: 1.4rem;
+    }
+
+    .search {
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .container1 {
+        padding: 0.75rem 0.5rem;
+        gap: 1rem;
+    }
+
+    .heading {
+        font-size: 1.2rem;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+
+    .search input {
+        padding: 6px 12px;
+        font-size: 0.85rem;
+    }
+
+    .searchButton {
+        padding: 6px 12px;
+    }
+}
+
+@media (max-width: 368px) {
+    .container1 {
+        padding: 0.5rem 0.25rem;
+    }
+
+    .heading {
+        font-size: 1.1rem;
+    }
+
+    .searchButton span {
+        display: none; /* Hide text on search button for very small screens */
     }
 }

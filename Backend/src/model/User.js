@@ -28,6 +28,17 @@ const userSchema = new mongoose.Schema(
             enum: ["user", "admin"],
             default: "user",
         },
+        phoneNumber: {
+            type: Number,
+        }, address: {
+            street: String,
+            city: String,
+            state: String,
+            pincode: String
+        },
+        avathar: {
+            type: String
+        },
         loginAttempts: {
             type: Number,
             default: 0,

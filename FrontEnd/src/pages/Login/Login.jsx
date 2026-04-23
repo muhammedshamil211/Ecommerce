@@ -26,9 +26,9 @@ export default function Login({ onSuccess, setAuthView }) {
                 const text = await userData.text();
                 throw new error(text);
             }
-            setUser(userData)
+            setUser({user:userData.user,token:userData.accessToken})
             setLoading(false)
-            localStorage.setItem("user", JSON.stringify(userData));
+            localStorage.setItem("user", JSON.stringify({user:userData.user,token:userData.accessToken}));
             const from = location.state?.from || "/";
             navigate(from, { replace: true });
             // if (onSuccess) onSuccess(userData)

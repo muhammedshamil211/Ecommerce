@@ -7,14 +7,10 @@ import MostViewItems from '../MostView/MostViewItems'
 
 export default function Home() {
   return (
-    <section id="home" className={styles.main}>
-      {/* <div className={styles.imageDiv}>
-        <img src={landing} alt="" />
-      </div> */}
-      {/* <hr /> */}
+    <div className={styles.main}>
       <AllItems />
       <RecentItems />
       <MostViewItems />
-    </section>
+    </div>
   )
 }

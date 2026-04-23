@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import styles from './Category.module.css'
 import { categoryItem } from '../../services/api';
 import ProductCard from '../../components/ProductCard/ProductCard';
+import ProductGrid from '../../components/ProductGrid/ProductGrid';
 
 export default function Category() {
 
@@ -36,25 +37,18 @@ export default function Category() {
     return (
         <div>
             <p className={styles.head}>
-                {category.charAt(0).toUpperCase()+category.slice(1)} items <span>{products.length}</span>
+                {category.charAt(0).toUpperCase() + category.slice(1)} items <span>{products.length}</span>
             </p>
             <p className={styles.sub}>Explore newest products</p>
             <hr className={styles.seper} />
 
-            {loading && <p>Loading...</p>}
-
             {!loading && products.length === 0 && (
-                <p>No products available</p>
+                <div className={styles.noProducts}>No products available</div>
             )}
-
-            <div className={styles.grid}>
-                {products.map((item) => (
-                    <ProductCard
-                        key={item._id}
-                        product={item}
-                    />
-                ))}
-            </div>
+            <ProductGrid
+                products={products}
+                loading={loading}
+            />
         </div>
     )
 }

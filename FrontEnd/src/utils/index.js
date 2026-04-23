@@ -1,8 +1,10 @@
 export function formatDate(iso) {
-  const d = new Date(iso)
-  return d.toISOString().split("T")[0];
-}
 
-export default {
-  formatDate
+  if (!iso) return "-";
+
+  const d = new Date(iso);
+
+  if (isNaN(d.getTime())) return "-";
+
+  return d.toISOString().split("T")[0];
 }

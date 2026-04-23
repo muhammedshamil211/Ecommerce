@@ -73,7 +73,20 @@ export const deleteProduct = async (req, res) => {
 
 export const viewAll = async (req, res) => {
     try {
-        const products = await Product.find().populate("owner", "_id name");
+
+        let products;
+
+        const { key } = req.body;
+        if (key) {
+            products = await Product.find({
+                $or: [
+                    { title: { $regex: key, $options: "i" } },
+                    {category: { $regex: key, $options: "i" }}
+                ]
+            }).populate("owner", "_id name");
+        } else {
+            products = await Product.find().populate("owner", "_id name");
+        }
 
         res.status(200).json({
             success: true,
@@ -119,9 +132,20 @@ export const getProductData = async (req, res) => {
 }
 export const getMyProduct = async (req, res) => {
     try {
-        const products = await Product.find({
-            owner: req.user.id
-        }).sort({ ceatedAt: -1 }).populate("owner", "_id name");
+
+        let products;
+        const { key } = req.body;
+        if (key) {
+            products = await Product.find({
+                owner: req.user.id,
+                title: { $regex: key, $options: "i" }
+            }).sort({ ceatedAt: -1 }).populate("owner", "_id name");;
+        } else {
+            products = await Product.find({
+                owner: req.user.id
+            }).sort({ ceatedAt: -1 }).populate("owner", "_id name");
+        }
+
 
         res.status(200).json({
             success: true,

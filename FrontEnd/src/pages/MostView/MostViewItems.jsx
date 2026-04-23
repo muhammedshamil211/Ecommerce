@@ -2,6 +2,7 @@ import React, { useState,useEffect } from 'react'
 import { mostViewedItems } from '../../services/api';
 import ProductCard from '../../components/ProductCard/ProductCard';
 import styles from './MostViewItems.module.css'
+import ProductGrid from '../../components/ProductGrid/ProductGrid';
 
 export default function MostViewItems() {
 
@@ -39,20 +40,15 @@ export default function MostViewItems() {
             <p className={styles.sub}>Explore recommended products</p>
             <hr className={styles.seper} />
 
-            {loading && <p>Loading...</p>}
-
             {!loading && products.length === 0 && (
-                <p>No products available</p>
+                <div className={styles.noProducts}>No products available</div>
             )}
 
-            <div className={styles.grid}>
-                {products.map((item) => (
-                    <ProductCard
-                        key={item._id}
-                        product={item}
-                    />
-                ))}
-            </div>
+            <ProductGrid
+                products={products}
+                loading={loading}
+                count={4}
+            />
         </div>
     )
 }

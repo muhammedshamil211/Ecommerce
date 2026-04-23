@@ -1,0 +1,648 @@
+.page {
+    background: #f8fafc;
+    min-height: 100vh;
+    padding: 2rem 0 4rem;
+}
+
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 clamp(1rem, 3vw, 2rem);
+}
+
+.loading {
+    text-align: center;
+    padding: 10rem 1rem;
+    font-size: 1.1rem;
+    color: #64748b;
+    font-weight: 500;
+}
+
+/* Skeleton Styles */
+.skeleton {
+    background: #e2e8f0;
+    background: linear-gradient(
+        90deg,
+        #f1f5f9 25%,
+        #e2e8f0 50%,
+        #f1f5f9 75%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite linear;
+    border-radius: 4px;
+}
+
+@keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+}
+
+.skeletonHeader {
+    margin-bottom: 2rem;
+}
+
+.skeletonBack {
+    width: 60px;
+    height: 18px;
+    margin-bottom: 1rem;
+}
+
+.skeletonTitleRow {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.skeletonTitle {
+    width: 250px;
+    height: 36px;
+}
+
+.skeletonBadge {
+    width: 80px;
+    height: 24px;
+}
+
+.skeletonDate {
+    width: 180px;
+    height: 16px;
+}
+
+.skeletonTracking {
+    height: 140px;
+    width: 100%;
+    background: #fff;
+    border-radius: 12px;
+    margin-bottom: 2rem;
+    border: 1px solid #e2e8f0;
+}
+
+.skeletonItemRow {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    padding: 0.5rem 0;
+}
+
+.skeletonItemImg {
+    width: 70px;
+    height: 70px;
+    border-radius: 8px;
+}
+
+.skeletonItemInfo {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.skeletonItemName {
+    width: 60%;
+    height: 16px;
+}
+
+.skeletonItemQty {
+    width: 30%;
+    height: 12px;
+}
+
+.skeletonItemPrice {
+    width: 60px;
+    height: 16px;
+}
+
+.skeletonInfoText {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    flex: 1;
+}
+
+.skeletonTextLine {
+    height: 14px;
+    width: 100%;
+}
+
+.skeletonTextLineShort {
+    width: 70%;
+}
+
+.errorContainer {
+    text-align: center;
+    padding: 8rem 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.errorIcon {
+    color: #ef4444;
+}
+
+.backBtn {
+    margin-top: 1rem;
+    background: #2563eb;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+/* Header */
+.header {
+    margin-bottom: 2rem;
+}
+
+.backLink {
+    background: none;
+    border: none;
+    padding: 0;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #64748b;
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    cursor: pointer;
+    margin-bottom: 1rem;
+    transition: color 0.15s;
+}
+
+.backLink:hover {
+    color: #2563eb;
+}
+
+.titleRow {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 0.25rem;
+}
+
+.title {
+    font-size: 2rem;
+    font-weight: 800;
+    color: #0f172a;
+    margin: 0;
+}
+
+.activeBadge {
+    background: #e0e7ff;
+    color: #4338ca;
+    padding: 0.25rem 0.6rem;
+    border-radius: 6px;
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+}
+
+.cancelledBadge {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    background: #fee2e2;
+    color: #b91c1c;
+    padding: 0.3rem 0.6rem;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-weight: 700;
+}
+
+.dateText {
+    color: #64748b;
+    font-size: 0.95rem;
+    margin: 0;
+}
+
+/* Tracking */
+.trackingCard {
+    background: #fff;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    margin-bottom: 2rem;
+    border: 1px solid #e2e8f0;
+}
+
+.cardTitle {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #1e293b;
+    margin: 0 0 1.5rem;
+}
+
+.stepper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    position: relative;
+    z-index: 2;
+    flex: 1;
+}
+
+.stepIcon {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: #f1f5f9;
+    color: #94a3b8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.9rem;
+    border: 3px solid #fff;
+    box-shadow: 0 0 0 2px #e2e8f0;
+    transition: all 0.3s;
+}
+
+.stepCompleted {
+    background: #22c55e;
+    color: #fff;
+    box-shadow: 0 0 0 2px #22c55e;
+}
+
+.stepCurrent {
+    background: #3b82f6;
+    color: #fff;
+    box-shadow: 0 0 0 4px #bfdbfe;
+}
+
+.stepLabel {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #64748b;
+    text-align: center;
+}
+
+.labelCompleted {
+    color: #0f172a;
+}
+
+.stepLine {
+    position: absolute;
+    top: 16px;
+    left: calc(50% + 20px);
+    right: calc(-50% + 20px);
+    height: 3px;
+    background: #e2e8f0;
+    z-index: 1;
+}
+
+.lineCompleted {
+    background: #22c55e;
+}
+
+/* Cancelled Card */
+.cancelledCard {
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+    padding: 1.5rem;
+    border-radius: 12px;
+    margin-bottom: 2rem;
+}
+
+.cancelledCard h3 {
+    color: #b91c1c;
+    margin: 0 0 0.5rem;
+    font-size: 1.1rem;
+}
+
+.cancelledCard p {
+    color: #991b1b;
+    margin: 0;
+    font-size: 0.95rem;
+}
+
+/* Grid Layout */
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 350px;
+    gap: 2rem;
+    align-items: start;
+}
+
+.card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    border: 1px solid #e2e8f0;
+    margin-bottom: 1.5rem;
+}
+
+/* Items */
+.itemList {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.itemRow {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.itemImg {
+    width: 70px;
+    height: 70px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 1px solid #f1f5f9;
+}
+
+.itemInfo {
+    flex: 1;
+}
+
+.itemName {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #1e293b;
+    margin: 0 0 0.25rem;
+}
+
+.itemQty {
+    font-size: 0.85rem;
+    color: #64748b;
+    margin: 0;
+}
+
+.itemPrice {
+    display: flex;
+    align-items: center;
+    font-weight: 700;
+    color: #0f172a;
+}
+
+.totalRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px dashed #cbd5e1;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #0f172a;
+}
+
+.totalAmt {
+    display: flex;
+    align-items: center;
+    font-size: 1.3rem;
+}
+
+/* Info Section */
+.infoRow {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+}
+
+.infoIcon {
+    color: #64748b;
+    margin-top: 2px;
+}
+
+.infoText p {
+    margin: 0.15rem 0 0;
+    color: #475569;
+    font-size: 0.9rem;
+}
+
+.infoText strong {
+    color: #1e293b;
+    font-size: 0.95rem;
+}
+
+/* Actions */
+.actionsCard {
+    background: #fff;
+    border-radius: 12px;
+    padding: 1.5rem;
+    border: 1px solid #fecaca;
+}
+
+.actionNote {
+    font-size: 0.85rem;
+    color: #64748b;
+    margin: 0 0 1rem;
+    text-align: center;
+}
+
+.cancelBtn {
+    width: 100%;
+    padding: 0.875rem;
+    border-radius: 8px;
+    background: #fff;
+    color: #ef4444;
+    border: 1.5px solid #ef4444;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.cancelBtn:hover:not(:disabled) {
+    background: #fef2f2;
+}
+
+.cancelBtn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* ── Toast Confirm (applies to all screen sizes) ─────────────────── */
+.toastConfirm {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: 0.25rem;
+    min-width: 260px;
+}
+
+.toastHeader {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #0f172a;
+}
+
+.toastHeader p {
+    font-weight: 700;
+    font-size: 1.05rem;
+    margin: 0;
+}
+
+.toastMsg {
+    margin: 0;
+    color: #475569;
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+.toastActions {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+    justify-content: flex-end;
+}
+
+.toastBtnNo {
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    border: 1px solid #cbd5e1;
+    background: #f8fafc;
+    color: #475569;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: all 0.2s;
+}
+
+.toastBtnNo:hover {
+    background: #e2e8f0;
+    color: #0f172a;
+}
+
+.toastBtnYes {
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    border: none;
+    background: #ef4444;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: all 0.2s;
+    box-shadow: 0 2px 4px rgba(239, 68, 68, 0.2);
+}
+
+.toastBtnYes:hover {
+    background: #dc2626;
+    box-shadow: 0 4px 6px rgba(239, 68, 68, 0.3);
+}
+
+/* ── Responsive ─────────────────────────────────────────────────── */
+@media (max-width: 1024px) {
+    .container {
+        padding: 0 1rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .page {
+        padding: 1rem 0 2rem;
+    }
+
+    .title {
+        font-size: 1.5rem;
+    }
+
+    .grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .trackingCard {
+        padding: 1.25rem;
+    }
+
+    .stepper {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1.5rem;
+        padding-left: 1rem;
+    }
+
+    .step {
+        flex-direction: row;
+        gap: 1rem;
+        flex: none;
+    }
+
+    .stepLine {
+        width: 3px;
+        height: calc(100% + 1.5rem);
+        left: 14.5px;
+        top: 24px;
+        right: auto;
+    }
+
+    .step:last-child .stepLine {
+        display: none;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 0 0.5rem;
+    }
+
+    .title {
+        font-size: 1.25rem;
+    }
+
+    .card {
+        padding: 1rem;
+    }
+
+    .itemImg {
+        width: 50px;
+        height: 50px;
+    }
+
+    .totalRow {
+        font-size: 1rem;
+    }
+
+    .totalAmt {
+        font-size: 1.1rem;
+    }
+}
+
+@media (max-width: 368px) {
+    .container {
+        padding: 0 0.25rem;
+    }
+
+    .titleRow {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+
+    .dateText {
+        font-size: 0.8rem;
+    }
+
+    .itemName {
+        font-size: 0.85rem;
+    }
+
+    .itemPrice {
+        font-size: 0.85rem;
+    }
+
+    .loading {
+        padding: 5rem 1rem;
+    }
+}

@@ -56,7 +56,19 @@ export async function signup({ name, email, password }) {
   return fetchJSON(BASEURI, '/register', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
+    credentials: 'include',
     body: JSON.stringify({ name, email, password })
+  })
+}
+
+export const updateProfile = async (accessToken, formData) => {
+  return fetchJSON(BASEURI, '/updateUser', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      "Authorization": `Bearer ${accessToken}`
+    },
+    body: JSON.stringify(formData)
   })
 }
 
@@ -117,20 +129,22 @@ export const deleteItem = async (accessToken, id) => {
   })
 }
 
-export const myItems = async (accessToken) => {
+export const myItems = async (accessToken, key = '') => {
   return fetchJSON(itemBaseURI, "/myproduct", {
     method: "POST",
     headers: {
       'Content-Type': 'application/json',
       "Authorization": `Bearer ${accessToken}`
-    }
+    },
+    body: JSON.stringify({ key })
   });
 }
 
-export const allItems = async () => {
+export const allItems = async (key = '') => {
   return fetchJSON(itemBaseURI, "/viewall", {
     method: "POST",
-    headers: { 'Content-Type': 'application/json' }
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ key })
   });
 }
 
@@ -139,6 +153,10 @@ export const recentItems = async (page = 1, limit = 10) => {
     method: "POST",
     headers: { 'Content-Type': 'application/json' }
   })
+}
+
+export const mostFavItems = async (page = 1, limit = 10) => {
+  return fetchJSON(itemBaseURI, ``)
 }
 
 export const mostViewedItems = async (page = 1, limit = 10) => {
@@ -169,16 +187,124 @@ export const fetchProductData = async (id) => {
 export const toggleLike = async (accessToken, id) => {
   return fetchJSON(itemBaseURI, `/like/${id}`, {
     method: "POST",
-    headers: { 'Content-Type': 'application/json',
-      "Authorization": `Bearer ${accessToken}` }
+    headers: {
+      'Content-Type': 'application/json',
+      "Authorization": `Bearer ${accessToken}`
+    }
   });
 }
+
 
 
 export const getWishList = async (accessToken) => {
   return fetchJSON(itemBaseURI, '/user/wishlist', {
     method: "POST",
-    headers: { 'Content-Type': 'application/json',
-      "Authorization": `Bearer ${accessToken}` }
+    headers: {
+      'Content-Type': 'application/json',
+      "Authorization": `Bearer ${accessToken}`
+    }
   })
 }
+
+// =====================================
+// CART API
+// =====================================
+const cartBaseURI = 'http://localhost:4500/api/cart';
+
+export const getCart = async (accessToken) => {
+  return fetchJSON(cartBaseURI, '/', {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+};
+
+export const addToCartAPI = async (accessToken, productId, qty = 1) => {
+  return fetchJSON(cartBaseURI, '/add', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+    },
+    body: JSON.stringify({ productId, qty }),
+  });
+};
+
+export const updateCartItemAPI = async (accessToken, productId, qty) => {
+  return fetchJSON(cartBaseURI, '/update', {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+    },
+    body: JSON.stringify({ productId, qty }),
+  });
+};
+
+export const removeFromCartAPI = async (accessToken, productId) => {
+  return fetchJSON(cartBaseURI, `/remove/${productId}`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+};
+
+export const clearCartAPI = async (accessToken) => {
+  return fetchJSON(cartBaseURI, '/clear', {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+};
+
+// =====================================
+// ORDER API
+// =====================================
+const orderBaseURI = 'http://localhost:4500/api/orders';
+
+export const placeOrderAPI = async (accessToken, { shippingAddress, paymentMethod }) => {
+  return fetchJSON(orderBaseURI, '/place', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+    },
+    body: JSON.stringify({ shippingAddress, paymentMethod }),
+  });
+};
+
+export const getMyOrdersAPI = async (accessToken, page = 1) => {
+  return fetchJSON(orderBaseURI, `/my?page=${page}&limit=10`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+};
+
+export const getOrderByIdAPI = async (accessToken, id) => {
+  return fetchJSON(orderBaseURI, `/${id}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+};
+
+export const cancelOrderAPI = async (accessToken, id) => {
+  return fetchJSON(orderBaseURI, `/${id}/cancel`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+};

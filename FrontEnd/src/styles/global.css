@@ -1,18 +1,76 @@
-:root{
+:root {
   --bg: #f7f8fb;
   --text: #111827;
   --primary: #2563eb;
 }
-*{box-sizing:border-box}
-html,body,#root{height:100%;}
-body{margin:0;font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;background:var(--bg);color:var(--text)}
-.container{max-width:980px;margin:2rem auto;padding:0 1rem}
-.site-header{display:flex;justify-content:space-between;align-items:center;padding:1rem 0;border-bottom:1px solid rgba(0,0,0,0.06)}
-.brand{display:flex;gap:.75rem;align-items:center}
-.logo{width:36px;height:36px}
-nav a{margin-left:1rem;color:var(--primary);text-decoration:none}
-.site-footer{text-align:center;padding:1rem 0;margin-top:auto;color:rgba(0,0,0,0.6)}
-#root{display:flex;flex-direction:column}
+
+* {
+  box-sizing: border-box
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.7)),
+    url('https://img.freepik.com/free-vector/white-background-design-gradient-vector-modern-abstract_343694-2358.jpg');
+  background-repeat: repeat;
+  background-position: center;
+  background-size: cover;
+  height: 100%;
+}
+
+.container {
+  max-width: 980px;
+  margin: 2rem auto;
+  padding: 0 1rem
+}
+
+.site-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06)
+}
+
+.brand {
+  display: flex;
+  gap: .75rem;
+  align-items: center
+}
+
+.logo {
+  width: 36px;
+  height: 36px
+}
+
+nav a {
+  margin-left: 1rem;
+  color: var(--primary);
+  text-decoration: none
+}
+
+.site-footer {
+  text-align: center;
+  padding: 1rem 0;
+  margin-top: auto;
+  color: rgba(0, 0, 0, 0.6)
+}
+
+#root {
+  display: flex;
+  flex-direction: column
+}
+
 :root {
   --primary-color: #6366f1;
   --primary-hover: #4f46e5;
@@ -30,4 +88,19 @@ nav a{margin-left:1rem;color:var(--primary);text-decoration:none}
   --radius-lg: 1rem;
   --radius-full: 9999px;
   --transition: all 0.2s ease-in-out;
+  
+}
+
+@keyframes slide {
+    from {
+        opacity: 0.5;
+        transform: scale(0.5);
+        transform: translateX(-600px);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+        transform: translateX(0);
+    }
 }

@@ -11,6 +11,7 @@ const ProfileDropdown = ({
 
     const { user, setUser } = useContext(AppContext);
 
+
     return (
         <div className={styles.wrapper}>
             {/* Profile Icon */}
@@ -30,14 +31,14 @@ const ProfileDropdown = ({
                     <button className={styles.login} onClick={onProfileClick}>Login/Signup</button>
                 </div>
                     : <div className={styles.header}>
-                        <h4>Hello {user.user.name.toUpperCase()}</h4>
-                        <p>{user.user.email}</p>
+                        <h4>Hello {user.user?.name.toUpperCase()}</h4>
+                        <p>{user.user?.email}</p>
                     </div>}
 
 
                 <ul className={styles.menu}>
-                    <li>Orders</li>
-                    <li>Wishlist</li>
+                    <li><Link to="/my-orders" style={{ color: 'inherit', textDecoration: 'none' }}>My Bookings</Link></li>
+                    <li><Link to="/product/wishlist" style={{ color: 'inherit', textDecoration: 'none' }}>Wishlist</Link></li>
                     <li>Gift Cards</li>
                     <li>Contact Us</li>
                 </ul>
@@ -50,6 +51,7 @@ const ProfileDropdown = ({
                     <li>Saved Cards</li>
                     <li>Saved VPA</li>
                     <li>Saved Addresses</li>
+                    <li><Link to="/helpCenter" style={{ color: 'inherit', textDecoration: 'none' }}>Help Center</Link></li>
                 </ul>
 
                 <div className={styles.divider}></div>
@@ -60,6 +62,7 @@ const ProfileDropdown = ({
                     <li onClick={async () => {
                         await logout();
                         setUser(null);
+                        localStorage.removeItem("user");
                     }}>Logout</li>
                 </ul>
             </div>

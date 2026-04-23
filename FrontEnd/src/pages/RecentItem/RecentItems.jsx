@@ -1,57 +1,83 @@
 import React, { useState, useEffect } from 'react'
-import { recentItems } from '../../services/api';
+import { recentItems } from '../../services/api'
 import styles from './RecentItems.module.css'
-import ProductCard from '../../components/ProductCard/ProductCard';
-
+import ProductGrid from '../../components/ProductGrid/ProductGrid'
 
 export default function RecentItems() {
-    const [products, setProducts] = useState([]);
-    const [loading, setLoading] = useState(false);
+
+    const [products, setProducts] = useState([])
+    const [loading, setLoading] = useState(false)
+    const [page, setPage] = useState(1)
+    const [totalPage, setTotalPage] = useState(1)
+
+    const fetchProducts = async (pageNumber = 1) => {
+
+        try {
+
+            setLoading(true)
+
+            const res = await recentItems(pageNumber, 10)
+
+            if (res.success) {
+
+                setProducts(prev =>
+                    pageNumber === 1
+                        ? res.products
+                        : [...prev, ...res.products]
+                )
+
+                setTotalPage(res.totalPage)
+
+            }
+
+        } catch (error) {
+            console.log(error)
+        } finally {
+            setLoading(false)
+        }
+
+    }
 
     useEffect(() => {
+        fetchProducts(1)
+    }, [])
 
-        const fetchProducts = async () => {
-            try {
-                setLoading(true);
+    const loadMore = () => {
 
-                const res = await recentItems(1, 10);
+        const nextPage = page + 1
+        setPage(nextPage)
+        fetchProducts(nextPage)
 
-                if (res.success) {
-                    setProducts(res.products || []);
-                }
+    }
 
-            } catch (error) {
-                console.log("Fetch products error:", error);
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        fetchProducts();
-
-    }, []);
     return (
         <div>
+
             <p className={styles.head}>
                 Recent items <span>{products.length}</span>
             </p>
-            <p className={styles.sub}>Explore newest products</p>
+
+            <p className={styles.sub}>
+                Explore newest products
+            </p>
+
             <hr className={styles.seper} />
 
-            {loading && <p>Loading...</p>}
+            <ProductGrid products={products} loading={loading && products.length === 0} count={4} />
 
-            {!loading && products.length === 0 && (
-                <p>No products available</p>
+            {page < totalPage && (
+
+                <div className={styles.moreContainer}>
+                    <span
+                        className={styles.more}
+                        onClick={loadMore}
+                    >
+                        More →
+                    </span>
+                </div>
+
             )}
 
-            <div className={styles.grid}>
-                {products.map((item) => (
-                    <ProductCard
-                        key={item._id}
-                        product={item}
-                    />
-                ))}
-            </div>
         </div>
     )
 }

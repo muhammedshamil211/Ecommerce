@@ -1,0 +1,514 @@
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 3rem clamp(1rem, 3vw, 2rem);
+    min-height: 70vh;
+}
+
+.header {
+    margin-bottom: 2.5rem;
+}
+
+.title {
+    font-size: clamp(1.8rem, 4vw, 2.2rem);
+    font-weight: 800;
+    color: #111827;
+    margin: 0 0 0.5rem;
+    letter-spacing: -0.03em;
+}
+
+.subtitle {
+    font-size: 1rem;
+    color: #6b7280;
+    margin: 0;
+}
+
+/* ── Error & Loading States ── */
+.errorMsg {
+    background: #fef2f2;
+    color: #b91c1c;
+    border-radius: 8px;
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 500;
+    margin-bottom: 1.5rem;
+    border: 1px solid #fecaca;
+}
+
+.loading {
+    text-align: center;
+    padding: 4rem 1rem;
+    color: #6b7280;
+    font-weight: 500;
+    font-size: 1.1rem;
+}
+
+/* Skeleton Styles */
+.skeleton {
+    background: #e2e8f0;
+    background: linear-gradient(
+        90deg,
+        #f1f5f9 25%,
+        #e2e8f0 50%,
+        #f1f5f9 75%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite linear;
+    border-radius: 4px;
+}
+
+@keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+}
+
+.skeletonCard {
+    background: #fff;
+    border-radius: 12px;
+    padding: 1.5rem;
+    border: 1px solid #e2e8f0;
+    margin-bottom: 1.5rem;
+}
+
+.skeletonHeader {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+}
+
+.skeletonOrderId {
+    width: 120px;
+    height: 18px;
+}
+
+.skeletonBadge {
+    width: 90px;
+    height: 24px;
+    border-radius: 20px;
+}
+
+.skeletonBody {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.skeletonGallery {
+    display: flex;
+    gap: 0.75rem;
+}
+
+.skeletonThumnail {
+    width: 60px;
+    height: 60px;
+    border-radius: 8px;
+}
+
+.skeletonMeta {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: flex-end;
+}
+
+.skeletonMetaLine {
+    width: 120px;
+    height: 14px;
+}
+
+.skeletonFooter {
+    border-top: 1px solid #f1f5f9;
+    padding-top: 1rem;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.skeletonBtn {
+    width: 120px;
+    height: 18px;
+}
+
+.emptyState {
+    text-align: center;
+    padding: 5rem 1rem;
+    background: #f8fafc;
+    border-radius: 16px;
+    border: 1px dashed #cbd5e1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.emptyIcon {
+    color: #94a3b8;
+    margin-bottom: 0.5rem;
+}
+
+.emptyState h2 {
+    font-size: 1.5rem;
+    color: #111827;
+    margin: 0;
+}
+
+.emptyState p {
+    color: #6b7280;
+    margin: 0 0 1rem;
+}
+
+.primaryBtn {
+    background: #2563eb;
+    color: #fff;
+    text-decoration: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: background 0.2s, transform 0.1s;
+}
+
+.primaryBtn:hover {
+    background: #1d4ed8;
+    transform: translateY(-1px);
+}
+
+/* ── Order List ── */
+.orderList {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.orderCard {
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    overflow: hidden;
+    transition: box-shadow 0.2s;
+}
+
+.orderCard:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+/* Header */
+.cardHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 1.25rem 1.5rem;
+    background: #f8fafc;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.headerLeft {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+}
+
+.orderId {
+    font-weight: 700;
+    color: #111827;
+    font-size: 1.1rem;
+    letter-spacing: -0.01em;
+}
+
+.dateRow {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.85rem;
+    color: #64748b;
+}
+
+/* Body */
+.cardBody {
+    padding: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2rem;
+}
+
+.imageGallery {
+    display: flex;
+    align-items: center;
+    gap: -0.5rem;
+    /* overlapping */
+}
+
+.thumnail {
+    width: 60px;
+    height: 60px;
+    border-radius: 8px;
+    object-fit: cover;
+    border: 2px solid #fff;
+    background: #f1f5f9;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    margin-right: -12px;
+    position: relative;
+    z-index: 1;
+}
+
+.thumnail:nth-child(2) {
+    z-index: 2;
+}
+
+.thumnail:nth-child(3) {
+    z-index: 3;
+}
+
+.moreCount {
+    width: 60px;
+    height: 60px;
+    border-radius: 8px;
+    background: #f1f5f9;
+    border: 2px solid #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #475569;
+    margin-left: 12px;
+    z-index: 4;
+}
+
+.orderMeta {
+    text-align: right;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.metaLabel {
+    font-size: 0.85rem;
+    color: #64748b;
+    margin: 0;
+}
+
+.metaVal {
+    font-weight: 600;
+    color: #334155;
+}
+
+.totalAmt {
+    display: inline-flex;
+    align-items: center;
+    gap: 1px;
+    font-weight: 800;
+    font-size: 1.1rem;
+    color: #0f172a;
+    margin-left: 0.5rem;
+}
+
+/* Footer */
+.cardFooter {
+    padding: 1rem 1.5rem;
+    border-top: 1px solid #f1f5f9;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.viewDetailsBtn {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #2563eb;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.viewDetailsBtn:hover {
+    color: #1d4ed8;
+}
+
+/* ── Status Badges ── */
+.statusBadge {
+    padding: 0.35rem 0.75rem;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.statusPlaced {
+    background: #eff6ff;
+    color: #1d4ed8;
+    border: 1px solid #bfdbfe;
+}
+
+.statusProcessing {
+    background: #fefce8;
+    color: #a16207;
+    border: 1px solid #fef08a;
+}
+
+.statusShipped {
+    background: #faf5ff;
+    color: #7e22ce;
+    border: 1px solid #e9d5ff;
+}
+
+.statusDelivered {
+    background: #f0fdf4;
+    color: #15803d;
+    border: 1px solid #bbf7d0;
+}
+
+.statusCancelled {
+    background: #fef2f2;
+    color: #b91c1c;
+    border: 1px solid #fecaca;
+}
+
+/* ── Pagination ── */
+.pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.pageBtn {
+    padding: 0.5rem 1.25rem;
+    border-radius: 8px;
+    border: 1px solid #cbd5e1;
+    background: #fff;
+    font-weight: 600;
+    color: #334155;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.pageBtn:hover:not(:disabled) {
+    border-color: #94a3b8;
+    background: #f8fafc;
+}
+
+.pageBtn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.pageInfo {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #64748b;
+}
+
+/* ── Responsive ── */
+@media (max-width: 1024px) {
+    .container {
+        padding: 2rem 1rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .title {
+        font-size: 1.8rem;
+    }
+
+    .orderCard {
+        border-radius: 8px;
+    }
+
+    .cardHeader {
+        padding: 1rem;
+    }
+
+    .cardBody {
+        padding: 1rem;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1.25rem;
+    }
+
+    .orderMeta {
+        text-align: left;
+        width: 100%;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .cardFooter {
+        padding: 0.75rem 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 1.5rem 0.5rem;
+    }
+
+    .title {
+        font-size: 1.5rem;
+    }
+
+    .subtitle {
+        font-size: 0.85rem;
+    }
+
+    .orderId {
+        font-size: 0.95rem;
+    }
+
+    .thumnail {
+        width: 50px;
+        height: 50px;
+    }
+
+    .moreCount {
+        width: 50px;
+        height: 50px;
+        font-size: 0.8rem;
+    }
+
+    .totalAmt {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 368px) {
+    .container {
+        padding: 1rem 0.25rem;
+    }
+
+    .cardHeader {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+
+    .statusBadge {
+        padding: 0.25rem 0.5rem;
+        font-size: 0.65rem;
+    }
+
+    .headerLeft {
+        gap: 0.2rem;
+    }
+
+    .dateRow {
+        font-size: 0.75rem;
+    }
+
+    .pagination {
+        gap: 0.5rem;
+    }
+
+    .pageBtn {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.8rem;
+    }
+}

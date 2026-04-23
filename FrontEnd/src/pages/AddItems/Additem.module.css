@@ -1,66 +1,102 @@
 .formContainer {
-    max-width: 800px;
+    max-width: 760px;
     margin: 0 auto;
-    background-color: rgb(240, 240, 240);
-    border-radius: 1rem;
-    box-shadow: var(--shadow-sm);
-    border: 1px solid rgb(206, 206, 206);
-    padding: 2rem;
+
+    background: white;
+
+    border-radius: 16px;
+
+    padding: clamp(1.5rem, 3vw, 2.5rem);
+
+    box-shadow:
+        0 10px 25px rgba(0, 0, 0, 0.08);
+
+    border: 1px solid #eee;
 }
 
+/* HEADER */
+
 .header {
-    margin-bottom: 2.5rem;
-    border-bottom: 1px solid rgb(130, 130, 130);
-    padding-bottom: 1.5rem;
+    margin-bottom: 2rem;
 }
 
 .header h2 {
-    font-size: 2rem;
-    color: rgb(0, 162, 255);
-    margin-bottom: 0.5rem;
+    font-size: 1.7rem;
+    font-weight: 600;
+    color: #111;
+    margin-bottom: 0.4rem;
 }
 
 .header p {
-    color: rgb(163, 163, 163);
-    font-size: 1.05rem;
+    color: #777;
+    font-size: 0.95rem;
 }
+
+/* FORM */
 
 .form {
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
+    gap: 1.4rem;
 }
+
+/* GROUP */
 
 .formGroup {
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    gap: 0.45rem;
 }
 
 .formGroup label {
-    font-weight: 600;
-    color: rgb(88, 88, 88);
-    font-size: 0.95rem;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: #555;
 }
+
+/* INPUTS */
 
 .formGroup input,
 .formGroup select,
 .formGroup textarea {
-    padding: 0.875rem 1rem;
-    border: 1px solid rgb(206, 206, 206);
-    border-radius: 1rem;
-    background-color: var(--bg-color);
-    color: var(--text-main);
-    font-size: 1rem;
+    padding: 0.75rem 0.9rem;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    background: #fafafa;
+    font-size: 0.95rem;
+    transition:
+        border .2s,
+        box-shadow .2s,
+        background .2s;
 }
+
+.formGroup select {
+    position: relative;
+    width: 100%;
+}
+
+.formGroup option {
+    position: absolute;
+    width: 100%;
+}
+
+.formGroup textarea {
+    resize: vertical;
+}
+
+/* FOCUS */
 
 .formGroup input:focus,
 .formGroup select:focus,
 .formGroup textarea:focus {
+
     outline: none;
-    border-color: rgb(206, 206, 206);
-    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+    border-color: #0066ff;
+    background: white;
+    box-shadow: 0 0 0 3px rgba(0, 102, 255, 0.1);
 }
+
+/* GRID */
 
 .grid {
     display: grid;
@@ -68,61 +104,134 @@
     gap: 1rem;
 }
 
+/* ACTIONS */
+
 .actions {
     display: flex;
     justify-content: flex-end;
-    gap: 1.25rem;
-    margin-top: 2rem;
-    padding-top: 1.5rem;
-    border-top: 1px solid gray;
+    gap: 1rem;
+    margin-top: 1rem;
 }
+
+/* BUTTONS */
 
 .submitBtn,
 .cancelBtn {
-    padding: 0.75rem 1.75rem;
-    border-radius: 1rem;
-    font-weight: 600;
-    font-size: 1rem;
+
+    padding: 0.65rem 1.5rem;
+
+    border-radius: 999px;
+
+    font-size: 0.9rem;
+    font-weight: 500;
+
+    cursor: pointer;
+
+    transition: all .2s ease;
 }
 
+/* PRIMARY */
+
 .submitBtn {
-    background-color: rgb(0, 162, 255);
-    color: white;
     border: none;
+
+    background: linear-gradient(135deg, #0066ff, #008cff);
+
+    color: white;
 }
 
 .submitBtn:hover:not(:disabled) {
-    background-color: lightblue;
     transform: translateY(-1px);
+    box-shadow: 0 6px 16px rgba(0, 102, 255, 0.25);
 }
 
+/* CANCEL */
+
+.cancelBtn {
+    border: 1px solid #ddd;
+    background: white;
+    color: #555;
+}
+
+.cancelBtn:hover {
+    background: #f5f5f5;
+}
+
+/* DISABLED */
+
 .submitBtn:disabled {
-    opacity: 0.7;
+    opacity: .6;
     cursor: not-allowed;
 }
 
-.cancelBtn {
-    background-color: transparent;
-    color: rgb(91, 91, 91);
-    border: 1px solid gray;
-}
-
-.cancelBtn:hover:not(:disabled) {
-    background-color: rgb(255, 132, 132);
-    color: white;
-}
-
-@media (max-width: 640px) {
+@media (max-width: 1024px) {
     .formContainer {
-        padding: 2rem 1.5rem;
+        padding: 2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .formContainer {
+        padding: 1.5rem;
+    }
+
+    .header h2 {
+        font-size: 1.5rem;
+    }
+
+    .grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .formContainer {
+        padding: 1rem;
+        border-radius: 12px;
+    }
+
+    .header {
+        margin-bottom: 1.25rem;
+    }
+
+    .header h2 {
+        font-size: 1.25rem;
+    }
+
+    .header p {
+        font-size: 0.85rem;
+    }
+
+    .grid {
+        grid-template-columns: 1fr;
     }
 
     .actions {
         flex-direction: column;
+        gap: 0.75rem;
     }
 
-    .submitBtn,
-    .cancelBtn {
+    .submitBtn, .cancelBtn {
         width: 100%;
+        padding: 0.75rem;
+    }
+}
+
+@media (max-width: 368px) {
+    .formContainer {
+        padding: 0.75rem;
+    }
+
+    .header h2 {
+        font-size: 1.1rem;
+    }
+
+    .formGroup label {
+        font-size: 0.75rem;
+    }
+
+    .formGroup input, .formGroup select, .formGroup textarea {
+        padding: 0.6rem 0.75rem;
+        font-size: 0.85rem;
     }
 }
