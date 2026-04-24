@@ -126,7 +126,7 @@ const ProductDetails = () => {
         navigate('/checkout');
     };
 
-    const handleLike = async () => {
+    const handleLike = async (e) => {
         if (!user) {
             navigate('/auth?view=login');
             return;
@@ -140,6 +140,20 @@ const ProductDetails = () => {
 
         setLiked(!wasLiked);
         setLikeCount(prev => wasLiked ? prev - 1 : prev + 1);
+
+        // Heart animation
+        if (!wasLiked) {
+            const rect = e.currentTarget.getBoundingClientRect();
+            for (let i = 0; i < 3; i++) {
+                const heart = document.createElement('div');
+                heart.innerHTML = '❤️';
+                heart.className = styles.floatingHeart;
+                heart.style.left = `${rect.left + rect.width / 2 - 10 + (Math.random() * 20 - 10)}px`;
+                heart.style.top = `${rect.top}px`;
+                document.body.appendChild(heart);
+                setTimeout(() => heart.remove(), 800);
+            }
+        }
 
         try {
             const res = await toggleLike(user.accessToken, product._id);

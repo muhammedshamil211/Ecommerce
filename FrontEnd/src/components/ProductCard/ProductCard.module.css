@@ -432,6 +432,31 @@ button.statItem:active .heartIcon {
     }
 }
 
+/* ── Heart Animation ── */
+.floatingHeart {
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    font-size: 1.2rem;
+    animation: floatUp 0.8s ease-out forwards;
+}
+
+@keyframes floatUp {
+    0% {
+        transform: translateY(0) scale(0.5);
+        opacity: 0;
+    }
+    20% {
+        opacity: 1;
+        transform: translateY(-10px) scale(1.2);
+    }
+    100% {
+        transform: translateY(-40px) scale(0.8);
+        opacity: 0;
+    }
+}
+
+
 @media (max-width: 1024px) {
     .card {
         border-radius: 10px;

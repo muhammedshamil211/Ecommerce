@@ -63,6 +63,23 @@ const ProductCard = ({ product }) => {
         setLiked(!wasLiked);
         setLikeCount(prev => wasLiked ? prev - 1 : prev + 1);
 
+        // Only animate if WE ARE LIKING (not unliking)
+        if (!wasLiked) {
+            const heartBtn = e.currentTarget;
+            const rect = heartBtn.getBoundingClientRect();
+            
+            // Spawn 3 hearts with slight offsets
+            for(let i=0; i<3; i++) {
+                const heart = document.createElement('div');
+                heart.innerHTML = '❤️';
+                heart.className = styles.floatingHeart;
+                heart.style.left = `${rect.left + rect.width/2 - 10 + (Math.random() * 20 - 10)}px`;
+                heart.style.top = `${rect.top}px`;
+                document.body.appendChild(heart);
+                setTimeout(() => heart.remove(), 800);
+            }
+        }
+
         try {
             const res = await toggleLike(user.accessToken, product._id);
             if (!res.success) {
