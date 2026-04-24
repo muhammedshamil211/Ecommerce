@@ -3,7 +3,6 @@ import authRoutes from "./routes/authRoute.js";
 import productRoute from "./routes/productRoute.js";
 import cartRoute from "./routes/cartRoute.js";
 import orderRoute from "./routes/orderRoute.js";
-import mediaRoutes from "./routes/mediaRoutes.js";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import helmet from "helmet";
@@ -29,6 +28,5 @@ app.use("/api/auth", authRoutes);
 app.use("/api/product", productRoute);
 app.use("/api/cart", cartRoute);
 app.use("/api/orders", orderRoute);
-app.use("/api/media", mediaRoutes);
 
 export default app;
