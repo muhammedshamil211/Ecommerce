@@ -1,5 +1,6 @@
 
-const BASEURI = 'http://localhost:4500/api/auth'
+const API_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:4500';
+const BASEURI = `${API_URL}/api/auth`;
 
 
 export async function fetchJSON(BASE, path, options = {}) {
@@ -94,7 +95,7 @@ export const logout = async () => {
   })
 }
 
-const itemBaseURI = 'http://localhost:4500/api/product';
+const itemBaseURI = `${API_URL}/api/product`;
 
 export const addItems = async (accessToken, payload) => {
   return fetchJSON(itemBaseURI, "/add", {
@@ -209,7 +210,7 @@ export const getWishList = async (accessToken) => {
 // =====================================
 // CART API
 // =====================================
-const cartBaseURI = 'http://localhost:4500/api/cart';
+const cartBaseURI = `${API_URL}/api/cart`;
 
 export const getCart = async (accessToken) => {
   return fetchJSON(cartBaseURI, '/', {
@@ -266,7 +267,7 @@ export const clearCartAPI = async (accessToken) => {
 // =====================================
 // ORDER API
 // =====================================
-const orderBaseURI = 'http://localhost:4500/api/orders';
+const orderBaseURI = `${API_URL}/api/orders`;
 
 export const placeOrderAPI = async (accessToken, { shippingAddress, paymentMethod }) => {
   return fetchJSON(orderBaseURI, '/place', {
