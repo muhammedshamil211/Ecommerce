@@ -63,7 +63,7 @@
     border-radius: 10px;
     border: 1px solid #ddd;
     background: #fafafa;
-    font-size: 0.95rem;
+    font-size: 1rem;
     transition:
         border .2s,
         box-shadow .2s,
@@ -232,6 +232,6 @@
 
     .formGroup input, .formGroup select, .formGroup textarea {
         padding: 0.6rem 0.75rem;
-        font-size: 0.85rem;
+        font-size: 1rem;
     }
 }

@@ -1,10 +1,9 @@
 import React, { useState, useRef, useContext } from 'react';
-import { Upload, X, Image as ImageIcon, Loader2, Camera } from 'lucide-react';
+import { Upload, X, Image as ImageIcon, Loader2 } from 'lucide-react';
 import styles from './ImageUpload.module.css';
 import { AppContext } from '../../context/AppContext';
 import { API_URL } from '../../services/apiClient';
 import CropModal from './CropModal';
-import CameraCapture from './CameraCapture';
 
 function ImageUpload({ images = [], onChange }) {
     const { user } = useContext(AppContext);
@@ -12,7 +11,6 @@ function ImageUpload({ images = [], onChange }) {
     const [dragActive, setDragActive] = useState(false);
     const [pendingImages, setPendingImages] = useState([]);
     const [activeCrop, setActiveCrop] = useState(null);
-    const [isCameraOpen, setIsCameraOpen] = useState(false);
     const fileInputRef = useRef(null);
 
     console.log("ImageUpload received images:", images);
@@ -73,11 +71,6 @@ function ImageUpload({ images = [], onChange }) {
         }
     };
 
-    const handleCameraCapture = (imageSrc) => {
-        setIsCameraOpen(false);
-        setPendingImages(prev => [...prev, imageSrc]);
-        setActiveCrop(imageSrc);
-    };
 
     const handleDrag = (e) => {
         e.preventDefault();
@@ -177,22 +170,7 @@ function ImageUpload({ images = [], onChange }) {
                     <Upload size={18} />
                     Upload Files
                 </button>
-                <button 
-                    type="button" 
-                    className={styles.actionBtn}
-                    onClick={() => setIsCameraOpen(true)}
-                >
-                    <Camera size={18} />
-                    Take Photo
-                </button>
             </div>
-
-            {isCameraOpen && (
-                <CameraCapture 
-                    onCapture={handleCameraCapture} 
-                    onCancel={() => setIsCameraOpen(false)} 
-                />
-            )}
 
             {activeCrop && (
                 <CropModal 
