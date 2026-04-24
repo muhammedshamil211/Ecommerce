@@ -26,7 +26,8 @@ import { deleteItem, fetchProductData, toggleLike } from './api';
 const ProductDetails = () => {
     const { id } = useParams();
     const navigate = useNavigate();
-    const { user, addToCart, setCartOpen } = useContext(AppContext);
+    const { user, addToCart, setCartOpen, fetchWishlistFromServer } = useContext(AppContext);
+
 
     const [product, setProduct] = useState(null);
     const [mainImage, setMainImage] = useState('');
@@ -185,8 +186,11 @@ const ProductDetails = () => {
                 setLiked(wasLiked);
                 setLikeCount(prevCount);
                 toast.error("Failed to update wishlist");
+            } else {
+                fetchWishlistFromServer(user.accessToken);
             }
         } catch (error) {
+
             setLiked(wasLiked);
             setLikeCount(prevCount);
             console.error("Like error:", error);

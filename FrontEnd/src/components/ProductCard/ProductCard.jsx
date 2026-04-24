@@ -24,7 +24,8 @@ export const ProductCardSkeleton = () => (
 );
 
 const ProductCard = ({ product }) => {
-    const { user, cart, addToCart, setCartOpen, allProduct, setAllProduct } = useContext(AppContext);
+    const { user, cart, addToCart, setCartOpen, allProduct, setAllProduct, fetchWishlistFromServer } = useContext(AppContext);
+
     const location = useLocation();
     const navigate = useNavigate();
     const [liked, setLiked] = useState(product.likes?.includes(user?.user?._id));
@@ -111,6 +112,9 @@ const ProductCard = ({ product }) => {
                 setLiked(wasLiked);
                 setLikeCount(prevCount);
                 toast.error("Failed to update wishlist");
+            } else {
+                // Sync global wishlist count
+                fetchWishlistFromServer(user.accessToken);
             }
         } catch (error) {
             // Rollback on network error

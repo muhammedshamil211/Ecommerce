@@ -39,9 +39,10 @@ export default function App() {
           <Route path="/addItems" element={<ProtectedRoutes><AddItems /></ProtectedRoutes>} />
           <Route path='/profile' element={<ProtectedRoutes><Profile /></ProtectedRoutes>} />
           <Route path='editItems/:id' element={<ProtectedRoutes><AddItems /></ProtectedRoutes>} />
+          <Route path='/product/wishlist' element={<ProtectedRoutes><WishList /></ProtectedRoutes>}></Route>
           <Route path='/product/:category' element={<Category />}></Route>
           <Route path='/productDetails/:id' element={<ProductDetails />}></Route>
-          <Route path='/product/wishlist' element={<ProtectedRoutes><WishList /></ProtectedRoutes>}></Route>
+
           <Route path='/cart' element={<ProtectedRoutes><Cart /></ProtectedRoutes>} />
           <Route path='/checkout' element={<ProtectedRoutes><Checkout /></ProtectedRoutes>} />
           <Route path='/order-success' element={<ProtectedRoutes><OrderSuccess /></ProtectedRoutes>} />

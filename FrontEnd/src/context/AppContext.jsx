@@ -2,6 +2,8 @@ import React, { createContext, useEffect, useState, useCallback } from 'react'
 import { refreshToken, logout as authLogout } from '../services/authApi'
 import { allItems } from '../services/productApi'
 import { getCart, addToCartAPI, updateCartItemAPI, removeFromCartAPI, clearCartAPI } from '../services/cartApi'
+import { getWishList } from '../pages/WishList/api'
+
 
 export const AppContext = createContext(null)
 
@@ -47,11 +49,13 @@ export function AppProvider({ children }) {
               setUser(updatedUser)
               localStorage.setItem('user', JSON.stringify(updatedUser))
               fetchCartFromServer(updatedUser.accessToken)
+              fetchWishlistFromServer(updatedUser.accessToken)
             }
           } catch (err) {
             console.warn("Silent bootstrap refresh failed:", err)
-            // Still fetch cart with existing token
+            // Still fetch cart/wishlist with existing token
             fetchCartFromServer(storedUser.accessToken)
+            fetchWishlistFromServer(storedUser.accessToken)
           }
         }
 
@@ -84,6 +88,20 @@ export function AppProvider({ children }) {
       }
     }
   }, [])
+
+  // ── Fetch wishlist from server ────────────────────────────────────────────
+  const fetchWishlistFromServer = useCallback(async (accessToken) => {
+    if (!accessToken) return
+    try {
+      const res = await getWishList(accessToken)
+      if (res.success) {
+        setWishlist(res.products || [])
+      }
+    } catch (error) {
+      console.log('Wishlist fetch error:', error)
+    }
+  }, [])
+
 
   // ── Cart actions ─────────────────────────────────────────────────────────
   const addToCart = useCallback(async (product, qty = 1) => {
@@ -145,8 +163,10 @@ export function AppProvider({ children }) {
     try { await authLogout(); } catch (err) { console.error("Logout error:", err); }
     setUser(null)
     setCart([])
+    setWishlist([])
     localStorage.removeItem('user')
   }
+
 
   return (
     <AppContext.Provider value={{
@@ -161,7 +181,9 @@ export function AppProvider({ children }) {
       cartOpen, setCartOpen,
       addToCart, updateQty, removeFromCart, clearCart,
       fetchCartFromServer,
+      fetchWishlistFromServer,
     }}>
+
       {children}
     </AppContext.Provider>
   )
