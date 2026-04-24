@@ -20,7 +20,8 @@ import {
     Minus,
     AlertTriangle,
 } from 'lucide-react';
-import { deleteItem, fetchProductData } from './api';
+import { deleteItem, fetchProductData, toggleLike } from './api';
+
 
 const ProductDetails = () => {
     const { id } = useParams();
@@ -34,12 +35,26 @@ const ProductDetails = () => {
     const [addingToCart, setAddingToCart] = useState(false);
     const [delToggle, setDelToggle] = useState(false);
 
+    // Like states
+    const [liked, setLiked] = useState(false);
+    const [likeCount, setLikeCount] = useState(0);
+
+
     useEffect(() => {
         const fetchProduct = async () => {
             try {
                 const res = await fetchProductData(id);
                 setProduct(res.product);
                 setMainImage(res.product.images[0]);
+                
+                // Initialize like state
+                if (res.product && user?.user?._id) {
+                    setLiked(res.product.likes?.includes(user.user._id));
+                    setLikeCount(res.product.likes?.length || 0);
+                } else {
+                    setLikeCount(res.product.likes?.length || 0);
+                }
+
                 setIsLoading(false);
             } catch (error) {
                 console.error("Failed to fetch product", error);
@@ -47,7 +62,8 @@ const ProductDetails = () => {
             }
         };
         fetchProduct();
-    }, [id, delToggle]);
+    }, [id, delToggle, user?.user?._id]);
+
 
     if (isLoading) return <div className={styles.loader}>Loading...</div>;
     if (!product) return <div className={styles.error}>Product not found</div>;
@@ -110,6 +126,48 @@ const ProductDetails = () => {
         navigate('/checkout');
     };
 
+    const handleLike = async () => {
+        if (!user) {
+            navigate('/auth?view=login');
+            return;
+        }
+
+        if (isOwner) return;
+
+        // Optimistic Update
+        const wasLiked = liked;
+        const prevCount = likeCount;
+
+        setLiked(!wasLiked);
+        setLikeCount(prev => wasLiked ? prev - 1 : prev + 1);
+
+        try {
+            const res = await toggleLike(user.accessToken, product._id);
+            if (!res.success) {
+                setLiked(wasLiked);
+                setLikeCount(prevCount);
+                toast.error("Failed to update wishlist");
+            }
+        } catch (error) {
+            setLiked(wasLiked);
+            setLikeCount(prevCount);
+            console.error("Like error:", error);
+        }
+    };
+
+    const handleShare = () => {
+        if (navigator.share) {
+            navigator.share({
+                title: product.title,
+                url: window.location.href
+            }).catch(() => {});
+        } else {
+            navigator.clipboard.writeText(window.location.href);
+            toast.success("Link copied to clipboard");
+        }
+    };
+
+
     return (
         <div className={styles.pageContainer}>
             <button className={styles.backButton} onClick={() => navigate(-1)}>
@@ -144,9 +202,24 @@ const ProductDetails = () => {
                     <div className={styles.header}>
                         <h1 className={styles.title}>{product.title}</h1>
                         <div className={styles.actions}>
-                            <button className={styles.iconButton} title="Share"><Share2 size={18} /></button>
-                            <button className={styles.iconButton} title="Save"><Heart size={18} /></button>
+                            <button 
+                                className={styles.iconButton} 
+                                title="Share"
+                                onClick={handleShare}
+                            >
+                                <Share2 size={18} />
+                            </button>
+                            <button 
+                                className={styles.iconButton} 
+                                title="Save"
+                                onClick={handleLike}
+                                style={{ color: liked ? '#ef4444' : '#6b7280' }}
+                            >
+                                <Heart size={18} fill={liked ? '#ef4444' : 'none'} />
+                                <span style={{ fontSize: '0.75rem', fontWeight: 600, marginLeft: '4px' }}>{likeCount}</span>
+                            </button>
                         </div>
+
                     </div>
 
                     <div className={styles.priceContainer}>
@@ -231,7 +304,13 @@ const ProductDetails = () => {
                         </div>
 
                         {!isOwner ? (
-                            <button className={styles.contactButton}>
+                            <button 
+                                className={styles.contactButton}
+                                onClick={() => {
+                                    const text = encodeURIComponent(`Hi, I'm interested in your product: ${product.title}\nLink: ${window.location.href}`);
+                                    window.open(`https://wa.me/${product.owner?.phoneNumber || '911234567890'}?text=${text}`, '_blank');
+                                }}
+                            >
                                 <MessageCircle size={18} />
                                 Chat with Seller
                             </button>

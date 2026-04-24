@@ -47,16 +47,35 @@ const ProductCard = ({ product }) => {
     const handleLike = async (e) => {
         e.preventDefault();
         e.stopPropagation();
+
+        if (!user) {
+            navigate('/auth?view=login');
+            return;
+        }
+
+        if (isOwner) return;
+
+        // --- Optimistic Update ---
+        const wasLiked = liked;
+        const prevCount = likeCount;
+
+        // Toggle local state immediately
+        setLiked(!wasLiked);
+        setLikeCount(prev => wasLiked ? prev - 1 : prev + 1);
+
         try {
-            if (!isOwner) {
-                const res = await toggleLike(user.accessToken, product._id);
-                if (res.success) {
-                    setLikeCount(res.likeCount);
-                    setLiked(res.liked);
-                }
+            const res = await toggleLike(user.accessToken, product._id);
+            if (!res.success) {
+                // Rollback if server fails
+                setLiked(wasLiked);
+                setLikeCount(prevCount);
+                toast.error("Failed to update wishlist");
             }
         } catch (error) {
-            console.log(error);
+            // Rollback on network error
+            setLiked(wasLiked);
+            setLikeCount(prevCount);
+            console.error("Like error:", error);
         }
     }
 
