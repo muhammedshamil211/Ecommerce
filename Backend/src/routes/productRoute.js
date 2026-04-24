@@ -13,16 +13,18 @@ router.post("/update/:id", protect, checkProductOwner, updateProduct);
 router.post("/delete/:id", protect, checkProductOwner, deleteProduct);
 router.post("/edit/:id", getProductData);
 
+// Functional routes (must be above /:category wildcard)
+router.post("/like/:id", protect, likeCount);
+router.post("/user/wishlist", protect, wishlist);
 
 // Public routes
 router.post("/viewall", viewAll);
 router.post("/latest", recentProducts);
 router.post("/mostViewed", mostVisitedProducts);
+
+// Wildcard MUST be last — catches /electronics, /clothing etc.
 router.post("/:category", getByCategory);
 
-// Functional routes
-router.post("/like/:id", protect, likeCount);
-router.post("/user/wishlist",protect,wishlist);
 
 
 
