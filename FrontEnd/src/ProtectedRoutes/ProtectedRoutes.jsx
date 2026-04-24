@@ -3,13 +3,8 @@ import { AppContext } from '../context/AppContext'
 import { Navigate, useLocation } from 'react-router-dom';
 
 export default function ProtectedRoutes({ children }) {
-    const { user, setUser, loading } = useContext(AppContext);
-    useEffect(() => {
-        const savedUser = JSON.parse(localStorage.getItem("user"));
-        if (savedUser) {
-            setUser(savedUser);
-        }
-    }, []);
+    const { user, loading } = useContext(AppContext);
+
     const location = useLocation();
     if (loading) {
         return <div>Loading.....</div>

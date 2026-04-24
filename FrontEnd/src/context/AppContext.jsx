@@ -6,7 +6,14 @@ import { getCart, addToCartAPI, updateCartItemAPI, removeFromCartAPI, clearCartA
 export const AppContext = createContext(null)
 
 export function AppProvider({ children }) {
-  const [user, setUser] = useState(null)
+  const [user, setUser] = useState(() => {
+    try {
+      const savedUser = localStorage.getItem('user')
+      return savedUser ? JSON.parse(savedUser) : null
+    } catch {
+      return null
+    }
+  })
   const [loading, setLoading] = useState(true)
   const [wishlist, setWishlist] = useState([])
   const [allProduct, setAllProduct] = useState([])
@@ -27,11 +34,9 @@ export function AppProvider({ children }) {
       try {
         setLoading(true)
 
-        const storedUser = JSON.parse(localStorage.getItem('user'))
+        const storedUser = user // Already synced from useState init
 
         if (storedUser) {
-          // Immediately set user from storage so UI doesn't flicker or logout
-          setUser(storedUser)
           
           // Attempt silent refresh to update the token, but don't force logout on failure
           // (iOS ITP or transient network issues might cause a false negative here)

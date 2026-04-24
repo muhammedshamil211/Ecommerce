@@ -1,18 +1,31 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { User } from "lucide-react";
 import styles from "./ProfileDropdown.module.css";
 import { AppContext } from "../../context/AppContext";
 import { Link } from "react-router-dom";
 
+
 const ProfileDropdown = ({
     onProfileClick
 }) => {
+    const { user, logout } = useContext(AppContext);
+    const [isOpen, setIsOpen] = useState(false);
 
-    const { user, setUser, logout } = useContext(AppContext);
+    const handleItemClick = () => {
+        setIsOpen(false);
+    };
 
+    const handleLogout = () => {
+        logout();
+        setIsOpen(false);
+    };
 
     return (
-        <div className={styles.wrapper}>
+        <div 
+            className={styles.wrapper}
+            onMouseEnter={() => setIsOpen(true)}
+            onMouseLeave={() => setIsOpen(false)}
+        >
             {/* Profile Icon */}
             <div className={styles.profileIcon}>
                 <div>
@@ -22,45 +35,56 @@ const ProfileDropdown = ({
             </div>
 
             {/* Dropdown */}
-            <div className={styles.dropdown}>
+            {isOpen && (
+                <div className={styles.dropdown} onClick={(e) => e.stopPropagation()}>
+                    {!user ? (
+                        <div className={styles.header}>
+                            <h4 className={styles.wel}>welcome</h4>
+                            <p>To access account and manage orders and add item</p>
+                            <button
+                                className={styles.login}
+                                onClick={() => {
+                                    onProfileClick();
+                                    handleItemClick();
+                                }}
+                            >
+                                Login/Signup
+                            </button>
+                        </div>
+                    ) : (
+                        <div className={styles.header}>
+                            <h4>Hello {user.user?.name.toUpperCase()}</h4>
+                            <p>{user.user?.email}</p>
+                        </div>
+                    )}
 
-                {!user ? <div className={styles.header}>
-                    <h4 className={styles.wel}>welcome</h4>
-                    <p>To access account and manage orders and add item</p>
-                    <button className={styles.login} onClick={onProfileClick}>Login/Signup</button>
+                    <ul className={styles.menu}>
+                        <li><Link to="/my-orders" onClick={handleItemClick}>My Bookings</Link></li>
+                        <li><Link to="/product/wishlist" onClick={handleItemClick}>Wishlist</Link></li>
+                        <li onClick={handleItemClick}>Gift Cards</li>
+                        <li onClick={handleItemClick}>Contact Us</li>
+                    </ul>
+
+                    <div className={styles.divider}></div>
+
+                    <ul className={styles.menu}>
+                        <li onClick={handleItemClick}>Shoppy Credit</li>
+                        <li onClick={handleItemClick}>Coupons</li>
+                        <li onClick={handleItemClick}>Saved Cards</li>
+                        <li onClick={handleItemClick}>Saved VPA</li>
+                        <li onClick={handleItemClick}>Saved Addresses</li>
+                        <li><Link to="/helpCenter" onClick={handleItemClick}>Help Center</Link></li>
+                    </ul>
+
+                    <div className={styles.divider}></div>
+
+                    <ul className={styles.menu}>
+                        <li><Link to='/profile' onClick={handleItemClick}>Edit Profile</Link></li>
+                        <li><Link to='/addItems' onClick={handleItemClick}>Add Items</Link></li>
+                        <li onClick={handleLogout}>Logout</li>
+                    </ul>
                 </div>
-                    : <div className={styles.header}>
-                        <h4>Hello {user.user?.name.toUpperCase()}</h4>
-                        <p>{user.user?.email}</p>
-                    </div>}
-
-
-                <ul className={styles.menu}>
-                    <li><Link to="/my-orders" style={{ color: 'inherit', textDecoration: 'none' }}>My Bookings</Link></li>
-                    <li><Link to="/product/wishlist" style={{ color: 'inherit', textDecoration: 'none' }}>Wishlist</Link></li>
-                    <li>Gift Cards</li>
-                    <li>Contact Us</li>
-                </ul>
-
-                <div className={styles.divider}></div>
-
-                <ul className={styles.menu}>
-                    <li>Shoppy Credit</li>
-                    <li>Coupons</li>
-                    <li>Saved Cards</li>
-                    <li>Saved VPA</li>
-                    <li>Saved Addresses</li>
-                    <li><Link to="/helpCenter" style={{ color: 'inherit', textDecoration: 'none' }}>Help Center</Link></li>
-                </ul>
-
-                <div className={styles.divider}></div>
-
-                <ul className={styles.menu}>
-                    <li><Link to='/profile'>Edit Profile</Link></li>
-                    <li><Link to='/addItems'>Add Items</Link></li>
-                    <li onClick={logout}>Logout</li>
-                </ul>
-            </div>
+            )}
         </div>
     );
 };
