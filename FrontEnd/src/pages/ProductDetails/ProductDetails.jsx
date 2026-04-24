@@ -132,7 +132,31 @@ const ProductDetails = () => {
             return;
         }
 
-        if (isOwner) return;
+        if (isOwner) {
+            toast((t) => (
+                <div style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '5px' }}>
+                    <div style={{ backgroundColor: '#fff7ed', borderRadius: '50%', padding: '8px', display: 'flex' }}>
+                        <AlertTriangle size={20} color="#f97316" />
+                    </div>
+                    <div>
+                        <p style={{ margin: 0, fontWeight: 700, fontSize: '0.9rem', color: '#111827' }}>Action Restricted</p>
+                        <p style={{ margin: 0, fontSize: '0.8rem', color: '#6b7280' }}>You cannot wishlist your own product.</p>
+                    </div>
+                </div>
+            ), {
+                position: 'top-center',
+                style: {
+                    borderRadius: '12px',
+                    background: '#fff',
+                    color: '#333',
+                    boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
+                    border: '1px solid #f3f4f6'
+                },
+                duration: 3000
+            });
+            return;
+        }
+
 
         // Optimistic Update
         const wasLiked = liked;
