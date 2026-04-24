@@ -1,5 +1,8 @@
 
-const API_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:4500';
+const API_URL = import.meta.env.PROD 
+  ? 'https://ecommerce-fd9c.onrender.com' 
+  : (import.meta.env.VITE_API_BASE_URL || 'http://localhost:4500');
+
 const BASEURI = `${API_URL}/api/auth`;
 
 
