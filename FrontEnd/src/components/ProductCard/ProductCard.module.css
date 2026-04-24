@@ -67,12 +67,15 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     backdrop-filter: blur(4px);
     transition: all 0.2s ease;
+}
+
 /* Default visible and clickable for mobile/touch */
 .imageWrapper button {
     opacity: 1;
     pointer-events: auto;
     transform: translateY(0);
 }
+
 
 @media (hover: hover) {
     /* Hide by default only on hover-supporting devices */
