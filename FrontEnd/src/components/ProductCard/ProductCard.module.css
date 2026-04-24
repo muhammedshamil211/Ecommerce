@@ -10,9 +10,11 @@
     position: relative;
 }
 
-.card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+@media (hover: hover) {
+    .card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    }
 }
 
 
@@ -65,15 +67,26 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     backdrop-filter: blur(4px);
     transition: all 0.2s ease;
-    opacity: 0;
-    pointer-events: none;
-    transform: translateY(-5px);
-}
-
-.card:hover .imageWrapper button {
+/* Default visible and clickable for mobile/touch */
+.imageWrapper button {
     opacity: 1;
     pointer-events: auto;
     transform: translateY(0);
+}
+
+@media (hover: hover) {
+    /* Hide by default only on hover-supporting devices */
+    .imageWrapper button {
+        opacity: 0;
+        pointer-events: none;
+        transform: translateY(-5px);
+    }
+    
+    .card:hover .imageWrapper button {
+        opacity: 1;
+        pointer-events: auto;
+        transform: translateY(0);
+    }
 }
 
 /* Add to Cart / View in Cart button */
@@ -152,8 +165,10 @@
     transition: transform 0.3s ease;
 }
 
-.card:hover .image {
-    transform: scale(1.05);
+@media (hover: hover) {
+    .card:hover .image {
+        transform: scale(1.05);
+    }
 }
 
 .categoryBadge {
