@@ -168,8 +168,12 @@ export const recentItems = async (page = 1, limit = 10) => {
 }
 
 export const mostFavItems = async (page = 1, limit = 10) => {
-  return fetchJSON(itemBaseURI, ``)
+  return fetchJSON(itemBaseURI, `/mostFav?page=${page}&limit=${limit}`, {
+    method: "POST",
+    headers: { 'Content-Type': 'application/json' }
+  })
 }
+
 
 export const mostViewedItems = async (page = 1, limit = 10) => {
   return fetchJSON(itemBaseURI, `/mostViewed?page=${page}&limit=${limit}`, {
