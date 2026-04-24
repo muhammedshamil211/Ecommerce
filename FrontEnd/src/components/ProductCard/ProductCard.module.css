@@ -224,8 +224,10 @@ a {
     text-overflow: ellipsis;
 }
 
-.titleWrapper:hover .title {
-    color: #2563eb;
+@media (hover: hover) {
+    .titleWrapper:hover .title {
+        color: #2563eb;
+    }
 }
 
 /* ========================= */
@@ -332,9 +334,11 @@ a {
     padding: 0;
 }
 
-button.statItem:hover {
-    color: #ef4444;
-    cursor: pointer;
+@media (hover: hover) {
+    button.statItem:hover {
+        color: #ef4444;
+        cursor: pointer;
+    }
 }
 
 /* Skeleton Styles */
@@ -422,8 +426,10 @@ button.statItem:active .heartIcon {
     transition: all 0.2s ease;
 }
 
-.statItem:hover .heartIcon {
-    transform: scale(1.2);
+@media (hover: hover) {
+    .statItem:hover .heartIcon {
+        transform: scale(1.2);
+    }
 }
 
 @media (max-width: 1024px) {

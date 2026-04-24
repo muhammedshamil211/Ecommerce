@@ -80,8 +80,10 @@
     transition: background 0.2s;
 }
 
-.searchButton:hover {
-    background: #1d4ed8;
+@media (hover: hover) {
+    .searchButton:hover {
+        background: #1d4ed8;
+    }
 }
 
 .actions {
@@ -105,9 +107,11 @@
     transition: all 0.2s;
 }
 
-.action:hover {
-    color: #2563eb;
-    background: #eff6ff;
+@media (hover: hover) {
+    .action:hover {
+        color: #2563eb;
+        background: #eff6ff;
+    }
 }
 
 .actionIcon {
@@ -207,8 +211,10 @@
     transition: color 0.2s;
 }
 
-.categoryNav a:hover {
-    color: #2563eb;
+@media (hover: hover) {
+    .categoryNav a:hover {
+        color: #2563eb;
+    }
 }
 
 /* Clean animated underline */
@@ -223,8 +229,10 @@
     transition: width 0.3s ease;
 }
 
-.categoryNav a:hover::after {
-    width: 100%;
+@media (hover: hover) {
+    .categoryNav a:hover::after {
+        width: 100%;
+    }
 }
 
 

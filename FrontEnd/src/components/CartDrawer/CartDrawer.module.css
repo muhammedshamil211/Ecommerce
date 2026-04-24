@@ -77,9 +77,11 @@
     transition: background 0.2s, color 0.2s;
 }
 
-.closeBtn:hover {
-    background: #fee2e2;
-    color: #ef4444;
+@media (hover: hover) {
+    .closeBtn:hover {
+        background: #fee2e2;
+        color: #ef4444;
+    }
 }
 
 /* ── Body ────────────────────────────────────────────── */
@@ -139,8 +141,10 @@
     transition: background 0.2s;
 }
 
-.browseBtn:hover {
-    background: #1d4ed8;
+@media (hover: hover) {
+    .browseBtn:hover {
+        background: #1d4ed8;
+    }
 }
 
 /* ── Item list ───────────────────────────────────────── */
@@ -165,8 +169,10 @@
     position: relative;
 }
 
-.cartItem:hover {
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
+@media (hover: hover) {
+    .cartItem:hover {
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
+    }
 }
 
 .itemImage {
@@ -189,8 +195,10 @@
     display: flex;
 }
 
-.itemImageBtn:hover .itemImage {
-    transform: scale(1.05);
+@media (hover: hover) {
+    .itemImageBtn:hover .itemImage {
+        transform: scale(1.05);
+    }
 }
 
 .itemInfo {
@@ -231,8 +239,10 @@
     transition: color 0.15s;
 }
 
-.itemTitleBtn:hover {
-    color: #2563eb;
+@media (hover: hover) {
+    .itemTitleBtn:hover {
+        color: #2563eb;
+    }
 }
 
 .itemPrice {
@@ -266,10 +276,12 @@
     transition: all 0.15s;
 }
 
-.qtyBtn:hover {
-    background: #2563eb;
-    color: #fff;
-    border-color: #2563eb;
+@media (hover: hover) {
+    .qtyBtn:hover {
+        background: #2563eb;
+        color: #fff;
+        border-color: #2563eb;
+    }
 }
 
 .qty {
@@ -295,9 +307,11 @@
     transition: color 0.2s, background 0.2s;
 }
 
-.removeBtn:hover {
-    color: #ef4444;
-    background: #fee2e2;
+@media (hover: hover) {
+    .removeBtn:hover {
+        color: #ef4444;
+        background: #fee2e2;
+    }
 }
 
 /* ── Footer ──────────────────────────────────────────── */
@@ -351,8 +365,10 @@
     transition: all 0.2s;
 }
 
-.viewCartBtn:hover {
-    background: #eff6ff;
+@media (hover: hover) {
+    .viewCartBtn:hover {
+        background: #eff6ff;
+    }
 }
 
 .checkoutBtn {
@@ -368,9 +384,11 @@
     transition: background 0.2s, transform 0.15s;
 }
 
-.checkoutBtn:hover {
-    background: #1d4ed8;
-    transform: translateY(-1px);
+@media (hover: hover) {
+    .checkoutBtn:hover {
+        background: #1d4ed8;
+        transform: translateY(-1px);
+    }
 }
 
 @media (max-width: 480px) {

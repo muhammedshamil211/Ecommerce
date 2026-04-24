@@ -56,11 +56,13 @@
     text-decoration: none;
 }
 
-.socialIcon:hover {
-    background: var(--primary-color, #6366f1);
-    color: white;
-    transform: translateY(-3px);
-    box-shadow: 0 10px 15px -3px rgba(99, 102, 241, 0.4);
+@media (hover: hover) {
+    .socialIcon:hover {
+        background: var(--primary-color, #6366f1);
+        color: white;
+        transform: translateY(-3px);
+        box-shadow: 0 10px 15px -3px rgba(99, 102, 241, 0.4);
+    }
 }
 
 .colTitle {
@@ -102,17 +104,21 @@
     font-size: 0.95rem;
 }
 
-.linksList li a:hover {
-    color: #818cf8;
-    transform: translateX(5px);
+@media (hover: hover) {
+    .linksList li a:hover {
+        color: #818cf8;
+        transform: translateX(5px);
+    }
 }
 
 .linksList li a svg {
     transition: transform 0.2s ease;
 }
 
-.linksList li a:hover svg {
-    transform: translateX(3px);
+@media (hover: hover) {
+    .linksList li a:hover svg {
+        transform: translateX(3px);
+    }
 }
 
 .contactList {
@@ -172,8 +178,10 @@
     transition: color 0.2s ease;
 }
 
-.legalLinks a:hover {
-    color: #f1f5f9;
+@media (hover: hover) {
+    .legalLinks a:hover {
+        color: #f1f5f9;
+    }
 }
 
 @media (max-width: 1024px) {
