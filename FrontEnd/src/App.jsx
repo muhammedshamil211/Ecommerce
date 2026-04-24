@@ -24,17 +24,9 @@ import HelpCenter from './pages/HelpCenter/HelpCenter'
 import SubmitRequest from './pages/SubmitRequest/SubmitRequest'
 
 export default function App() {
-  const { setUser, setLoading } = useContext(AppContext);
-  useEffect(() => {
-    const savedUser = JSON.parse(localStorage.getItem("user"));
-
-    if (savedUser) {
-      setUser(savedUser);
-    }
-    setLoading(false);
-  }, []);
   return (
     <>
+
       <Toaster position="top-center" reverseOrder={false} />
       <ScrollToTop />
       <Routes>

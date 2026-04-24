@@ -30,21 +30,23 @@ export function AppProvider({ children }) {
         const storedUser = JSON.parse(localStorage.getItem('user'))
 
         if (storedUser) {
+          // Immediately set user from storage so UI doesn't flicker or logout
+          setUser(storedUser)
+          
+          // Attempt silent refresh to update the token, but don't force logout on failure
+          // (iOS ITP or transient network issues might cause a false negative here)
           try {
             const res = await refreshToken()
-
             if (res.success) {
               const updatedUser = { ...storedUser, accessToken: res.accessToken }
               setUser(updatedUser)
               localStorage.setItem('user', JSON.stringify(updatedUser))
-
-              // Fetch cart from backend
               fetchCartFromServer(updatedUser.accessToken)
-            } else {
-              logout()
             }
-          } catch {
-            logout()
+          } catch (err) {
+            console.warn("Silent bootstrap refresh failed:", err)
+            // Still fetch cart with existing token
+            fetchCartFromServer(storedUser.accessToken)
           }
         }
 
