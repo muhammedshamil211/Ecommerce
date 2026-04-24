@@ -42,7 +42,7 @@ export default function SubmitRequest() {
     }
     return (
         <div>
-            <h3 className={style.mainHead}><span onClick={() => navigate('/helpCenter')} >Help Center</span> <span> >> Submit Request</span></h3>
+            <h3 className={style.mainHead}><span onClick={() => navigate('/helpCenter')} >Help Center</span> <span> {" >> "} Submit Request</span></h3>
             <div className={style.mainContainer}>
                 <div className={style.formDiv}>
                     <h3>Submit Request</h3>

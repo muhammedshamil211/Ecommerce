@@ -70,7 +70,11 @@ export function AppProvider({ children }) {
         setCart(res.cart.items || [])
       }
     } catch (error) {
-      console.log('Cart fetch error:', error)
+      if (error.message === 'UNAUTHORIZED') {
+        logout()
+      } else {
+        console.log('Cart fetch error:', error)
+      }
     }
   }, [])
 
@@ -84,7 +88,11 @@ export function AppProvider({ children }) {
         setCart(res.cart.items || [])
       }
     } catch (error) {
-      console.error('Add to cart error:', error)
+      if (error.message === 'UNAUTHORIZED') {
+        logout()
+      } else {
+        console.error('Add to cart error:', error)
+      }
     }
   }, [user])
 

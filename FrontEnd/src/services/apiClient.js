@@ -18,7 +18,8 @@ export async function apiClient(url, options = {}) {
   let res = await fetch(url, options);
 
   // Token expired — try to silently refresh and retry once
-  if (res.status === 401) {
+  if (res.status === 401 && !options._retry) {
+    options._retry = true;
     try {
       const refreshRes = await fetch(`${API_URL}/api/auth/refresh`, {
         method: 'POST',
@@ -29,27 +30,29 @@ export async function apiClient(url, options = {}) {
       if (refreshRes.ok) {
         const data = await refreshRes.json();
         const storedUser = JSON.parse(localStorage.getItem('user'));
-        const updatedUser = { ...storedUser, accessToken: data.accessToken };
-        localStorage.setItem('user', JSON.stringify(updatedUser));
+        
+        if (storedUser) {
+          const updatedUser = { ...storedUser, accessToken: data.accessToken };
+          localStorage.setItem('user', JSON.stringify(updatedUser));
+        }
 
         // Retry original request with new token
         options.headers = {
           ...options.headers,
           Authorization: `Bearer ${data.accessToken}`,
         };
-        res = await fetch(url, options);
-      } else {
-        // Refresh also failed — clear session and redirect
-        localStorage.removeItem('user');
-        window.location.href = '/login';
-        return;
+        return apiClient(url, options);
       }
-    } catch {
-      localStorage.removeItem('user');
-      window.location.href = '/login';
-      return;
+    } catch (err) {
+      console.error("Refresh token error:", err);
     }
+    
+    // If we reach here, refresh failed or was invalid. 
+    // We throw UNAUTHORIZED but DO NOT redirect hard.
+    // AppContext will catch this and handle state cleanup.
+    throw new Error('UNAUTHORIZED');
   }
+
 
   if (!res.ok) {
     let body = {};

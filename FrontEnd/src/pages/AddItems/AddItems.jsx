@@ -42,7 +42,7 @@ export default function AddItems() {
                             price: product.price || '',
                             offer: product.offer || '',
                             category: product.category || 'electronics',
-                            images: Array.isArray(product.images) ? product.images.join('---,') : "",
+                            images: Array.isArray(product.images) ? product.images.join('\n') : "",
                             stock: product.stock || 10
                         });
                     }
@@ -77,7 +77,7 @@ export default function AddItems() {
 
         try {
             const imagesArray = typeof formData.images === 'string' && formData.images.trim() !== ''
-                ? formData.images.split(',-,').map(url => url.trim()).filter(url => url)
+                ? formData.images.split('\n').map(url => url.trim()).filter(url => url)
                 : [];
 
             const payload = {
@@ -144,13 +144,13 @@ export default function AddItems() {
                 </div>
 
                 <div className={styles.formGroup}>
-                    <label htmlFor="images">Image URLs (,-, please add this in between URLs)</label>
-                    <input
-                        type="text"
+                    <label htmlFor="images">Image URLs (one per line)</label>
+                    <textarea
                         id="images"
                         name="images"
                         value={formData.images}
-                        placeholder="https://example.com/image1.jpg, https://example.com/image2.jpg"
+                        placeholder="https://example.com/image1.jpg&#10;https://example.com/image2.jpg"
+                        rows="3"
                         onChange={handleChange}
                     />
                 </div>

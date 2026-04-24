@@ -188,7 +188,11 @@ export const refreshAccessToken = (req, res) => {
 };
 
 export const logoutUser = (req, res) => {
-    res.clearCookie("refreshToken");
+    res.clearCookie("refreshToken", {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+    });
     res.json({
         success: true,
         message: "Logged out successfully"
