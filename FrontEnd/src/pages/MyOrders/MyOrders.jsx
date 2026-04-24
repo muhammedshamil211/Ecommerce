@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AppContext } from '../../context/AppContext';
-import { getMyOrdersAPI } from '../../services/api';
+import { getMyOrdersAPI } from './api';
 import styles from './MyOrders.module.css';
 import { IndianRupee, PackageOpen, ChevronRight, Calendar, AlertCircle } from 'lucide-react';
 

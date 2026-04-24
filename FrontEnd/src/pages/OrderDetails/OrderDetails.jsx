@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { AppContext } from '../../context/AppContext';
-import { getOrderByIdAPI, cancelOrderAPI } from '../../services/api';
+import { getOrderByIdAPI, cancelOrderAPI } from './api';
 import styles from './OrderDetails.module.css';
 import { ArrowLeft, IndianRupee, MapPin, CreditCard, AlertCircle, XCircle, AlertTriangle } from 'lucide-react';
 import toast from 'react-hot-toast';

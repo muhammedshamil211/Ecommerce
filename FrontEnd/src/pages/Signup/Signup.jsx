@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react'
 import styles from './Signup.module.css'
 import { AppContext } from '../../context/AppContext'
-import { signup } from '../../services/api'
+import { signup } from './api'
 import CloseButton from '../../components/closeButton/CloseButton'
 import { useNavigate, Link } from 'react-router-dom'
 
@@ -20,9 +20,10 @@ export default function Signup({ onSuccess, setAuthView }) {
         setError(null)
         setLoading(true)
         try {
-            const userData = await signup({ name, email, password })
-            setUser({user:userData.user,accessToken:userData.accessToken});
-            localStorage.setItem("user",JSON.stringify({user:userData.user,accessToken:userData.accessToken}));
+            const data = await signup({ name, email, password })
+            const sessionData = { user: data.user, accessToken: data.accessToken };
+            setUser(sessionData);
+            localStorage.setItem("user", JSON.stringify(sessionData));
             setLoading(false)
             navigate(-2);
         } catch (err) {

@@ -1,5 +1,5 @@
 import React, { useState,useEffect } from 'react'
-import { mostViewedItems } from '../../services/api';
+import { mostViewedItems } from './api';
 import ProductCard from '../../components/ProductCard/ProductCard';
 import styles from './MostViewItems.module.css'
 import ProductGrid from '../../components/ProductGrid/ProductGrid';

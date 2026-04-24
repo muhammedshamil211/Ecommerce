@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react'
 import styles from './Login.module.css'
 import { AppContext } from '../../context/AppContext'
-import { login } from '../../services/api'
+import { login } from './api'
 import CloseButton from '../../components/closeButton/CloseButton'
 import { useNavigate, Link, useLocation } from 'react-router-dom'
 
@@ -20,18 +20,15 @@ export default function Login({ onSuccess, setAuthView }) {
         setError(null)
         setLoading(true)
         try {
-            const userData = await login({ email, password })
-
-            if (!userData.success) {
-                const text = await userData.text();
-                throw new error(text);
-            }
-            setUser({user:userData.user,token:userData.accessToken})
-            setLoading(false)
-            localStorage.setItem("user", JSON.stringify({user:userData.user,token:userData.accessToken}));
+            const data = await login({ email, password })
+            
+            // apiClient throws on !ok, so if we're here, it was successful
+            const sessionData = { user: data.user, accessToken: data.accessToken };
+            setUser(sessionData)
+            localStorage.setItem("user", JSON.stringify(sessionData));
+            
             const from = location.state?.from || "/";
             navigate(from, { replace: true });
-            // if (onSuccess) onSuccess(userData)
         } catch (err) {
             setLoading(false)
             setError(err.message || 'Login failed')

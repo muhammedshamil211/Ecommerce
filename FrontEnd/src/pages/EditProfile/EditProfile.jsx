@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import styles from "./EditProfile.module.css";
 import { AppContext } from "../../context/AppContext";
-import { updateProfile } from "../../services/api";
+import { updateProfile } from "./api";
 import { useNavigate } from "react-router-dom";
 
 export default function EditProfile() {

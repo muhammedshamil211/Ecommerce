@@ -3,7 +3,7 @@ import styles from './MultiImageUpload.module.css';
 import { Upload, Camera, X, Plus, Image as ImageIcon, Loader2 } from 'lucide-react';
 import ImageCropper from '../ImageCropper/ImageCropper';
 import CameraCapture from '../CameraCapture/CameraCapture';
-import { getPresignedUrl, uploadToS3 } from '../../services/api';
+import { getPresignedUrl, uploadToS3 } from '../../services/uploadApi';
 import toast from 'react-hot-toast';
 
 const MultiImageUpload = ({ images = [], onChange, accessToken }) => {

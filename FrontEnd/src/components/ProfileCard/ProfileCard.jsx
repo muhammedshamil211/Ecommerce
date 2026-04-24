@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from "react";
 import styles from "./ProfileCard.module.css";
 import { AppContext } from "../../context/AppContext";
 import { formatDate } from "../../utils";
-import { getWishList } from "../../services/api";
+import { getWishList } from "../../pages/WishList/api";
 import { useNavigate } from "react-router-dom";
 
 export default function ProfileCard({ user, length, scrollToProduct }) {
@@ -14,12 +14,12 @@ export default function ProfileCard({ user, length, scrollToProduct }) {
     const address = user.user.address || {};
 
     useEffect(() => {
-        if (wishlist.length === 0) {
-            getWishList().then(data => {
+        if (wishlist.length === 0 && user?.accessToken) {
+            getWishList(user.accessToken).then(data => {
                 setWishlist(data.products || []);
             });
         }
-    }, []);
+    }, [user, wishlist.length, setWishlist]);
 
     return (
         <div className={styles.card}>

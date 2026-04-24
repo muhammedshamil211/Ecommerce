@@ -5,7 +5,7 @@ import styles from './Header.module.css'
 import ProfileDropdown from '../ProfileDropdown/ProfileDropdown'
 import CartDrawer from '../CartDrawer/CartDrawer'
 import { AppContext } from '../../context/AppContext'
-import { allItems } from '../../services/api'
+import { allItems } from '../../services/productApi'
 
 export default function Header({ onProfileClick, user }) {
 

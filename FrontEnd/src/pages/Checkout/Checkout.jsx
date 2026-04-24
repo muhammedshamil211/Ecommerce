@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import styles from './Checkout.module.css';
 import { AppContext } from '../../context/AppContext';
 import { IndianRupee, MapPin, CreditCard, Truck, Smartphone, Plus, CheckCircle2 } from 'lucide-react';
-import { placeOrderAPI } from '../../services/api';
+import { placeOrderAPI } from './api';
 import toast from 'react-hot-toast';
 
 const PAYMENT_OPTIONS = [

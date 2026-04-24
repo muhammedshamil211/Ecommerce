@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { AppContext } from '../../context/AppContext';
 import styles from './WishList.module.css'
-import { getWishList } from '../../services/api';
+import { getWishList } from './api';
 import ProductCard from '../../components/ProductCard/ProductCard';
 import ProductGrid from '../../components/ProductGrid/ProductGrid';
 import { ShoppingBag } from 'lucide-react';

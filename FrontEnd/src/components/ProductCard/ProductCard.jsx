@@ -3,7 +3,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import styles from './ProductCard.module.css';
 import { AppContext } from '../../context/AppContext';
 import { Edit2, IndianRupee, Trash2, ShoppingCart, CheckCircle, AlertTriangle } from 'lucide-react';
-import { deleteItem, toggleLike } from '../../services/api';
+import { deleteItem, toggleLike } from '../../services/productApi';
 import toast from 'react-hot-toast';
 
 export const ProductCardSkeleton = () => (

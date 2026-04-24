@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useRef, useState } from 'react'
 import { AppContext } from '../../context/AppContext'
 import styles from './Profile.module.css'
 import ProfileCard from '../../components/ProfileCard/ProfileCard';
-import { myItems, refreshToken } from '../../services/api';
+import { myItems } from './api';
 import ProductGrid from '../../components/ProductGrid/ProductGrid';
 import { Search, ArrowLeft } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';

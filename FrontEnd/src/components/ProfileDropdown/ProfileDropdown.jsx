@@ -1,7 +1,6 @@
 import React, { useContext } from "react";
 import { User } from "lucide-react";
 import styles from "./ProfileDropdown.module.css";
-import { logout } from "../../services/api";
 import { AppContext } from "../../context/AppContext";
 import { Link } from "react-router-dom";
 
@@ -9,7 +8,7 @@ const ProfileDropdown = ({
     onProfileClick
 }) => {
 
-    const { user, setUser } = useContext(AppContext);
+    const { user, setUser, logout } = useContext(AppContext);
 
 
     return (
@@ -59,11 +58,7 @@ const ProfileDropdown = ({
                 <ul className={styles.menu}>
                     <li><Link to='/profile'>Edit Profile</Link></li>
                     <li><Link to='/addItems'>Add Items</Link></li>
-                    <li onClick={async () => {
-                        await logout();
-                        setUser(null);
-                        localStorage.removeItem("user");
-                    }}>Logout</li>
+                    <li onClick={logout}>Logout</li>
                 </ul>
             </div>
         </div>

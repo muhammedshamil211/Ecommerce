@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom';
 import styles from './Category.module.css'
-import { categoryItem } from '../../services/api';
+import { categoryItem } from './api';
 import ProductCard from '../../components/ProductCard/ProductCard';
 import ProductGrid from '../../components/ProductGrid/ProductGrid';
 

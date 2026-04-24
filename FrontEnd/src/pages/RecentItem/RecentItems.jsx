@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { recentItems } from '../../services/api'
+import { recentItems } from './api'
 import styles from './RecentItems.module.css'
 import ProductGrid from '../../components/ProductGrid/ProductGrid'
 

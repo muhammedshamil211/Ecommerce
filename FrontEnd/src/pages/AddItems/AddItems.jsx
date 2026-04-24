@@ -3,7 +3,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import styles from './Additem.module.css'
 import { useNavigate, useParams } from 'react-router-dom';
 import { AppContext } from '../../context/AppContext';
-import { addItems, fetchProductData, updateItem } from '../../services/api';
+import { addItems, fetchProductData, updateItem } from './api';
 import Alert from '../../components/UI/Alert/Alert';
 
 export default function AddItems() {

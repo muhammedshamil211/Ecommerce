@@ -20,7 +20,7 @@ import {
     Minus,
     AlertTriangle,
 } from 'lucide-react';
-import { deleteItem, fetchProductData } from '../../services/api';
+import { deleteItem, fetchProductData } from './api';
 
 const ProductDetails = () => {
     const { id } = useParams();

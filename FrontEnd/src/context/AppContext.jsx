@@ -1,5 +1,7 @@
 import React, { createContext, useEffect, useState, useCallback } from 'react'
-import { refreshToken, allItems, getCart, addToCartAPI, updateCartItemAPI, removeFromCartAPI, clearCartAPI } from '../services/api'
+import { refreshToken, logout as authLogout } from '../services/authApi'
+import { allItems } from '../services/productApi'
+import { getCart, addToCartAPI, updateCartItemAPI, removeFromCartAPI, clearCartAPI } from '../services/cartApi'
 
 export const AppContext = createContext(null)
 
@@ -124,7 +126,8 @@ export function AppProvider({ children }) {
   }, [user])
 
   // ── Auth ─────────────────────────────────────────────────────────────────
-  const logout = () => {
+  const logout = async () => {
+    try { await authLogout(); } catch (err) { console.error("Logout error:", err); }
     setUser(null)
     setCart([])
     localStorage.removeItem('user')
