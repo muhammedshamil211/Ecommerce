@@ -11,31 +11,39 @@ export async function fetchJSON(BASE, path, options = {}) {
 
   if (res.status === 401) {
     try {
-      const refreshRes = await refreshToken();
+      // Use raw fetch here to avoid recursive loop back into fetchJSON
+      const refreshRes = await fetch(`${BASEURI}/refresh`, {
+        method: "POST",
+        headers: { 'Content-Type': 'application/json' },
+        credentials: "include"
+      });
 
-      if (refreshRes.success) {
+      if (refreshRes.ok) {
+        const data = await refreshRes.json();
         const storedUser = JSON.parse(localStorage.getItem("user"));
 
         const updatedUser = {
           ...storedUser,
-          accessToken: refreshRes.accessToken
+          accessToken: data.accessToken
         };
 
         localStorage.setItem("user", JSON.stringify(updatedUser));
 
         options.headers = {
           ...options.headers,
-          Authorization: `Bearer ${refreshRes.accessToken}`
+          Authorization: `Bearer ${data.accessToken}`
         };
 
         res = await fetch(`${BASE}${path}`, options);
       } else {
         localStorage.removeItem("user");
         window.location.href = "/login";
+        return;
       }
     } catch (err) {
       localStorage.removeItem("user");
       window.location.href = "/login";
+      return;
     }
   }
 
