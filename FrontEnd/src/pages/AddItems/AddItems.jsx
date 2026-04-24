@@ -5,6 +5,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { AppContext } from '../../context/AppContext';
 import { addItems, fetchProductData, updateItem } from './api';
 import Alert from '../../components/UI/Alert/Alert';
+import ImageUpload from '../../components/imageUpload/ImageUpload';
 
 export default function AddItems() {
     const navigate = useNavigate();
@@ -23,7 +24,7 @@ export default function AddItems() {
         price: "",
         offer: '',
         category: "electronics",
-        images: '',
+        images: [],
         stock: 10
     });
 
@@ -42,7 +43,7 @@ export default function AddItems() {
                             price: product.price || '',
                             offer: product.offer || '',
                             category: product.category || 'electronics',
-                            images: Array.isArray(product.images) ? product.images.join('\n') : "",
+                            images: Array.isArray(product.images) ? product.images : (product.images ? [product.images] : []),
                             stock: product.stock || 10
                         });
                     }
@@ -60,7 +61,7 @@ export default function AddItems() {
                 price: "",
                 offer: '',
                 category: "electronics",
-                images: '',
+                images: [],
                 stock: 10
             })
         }
@@ -76,9 +77,7 @@ export default function AddItems() {
         setError(null);
 
         try {
-            const imagesArray = typeof formData.images === 'string' && formData.images.trim() !== ''
-                ? formData.images.split('\n').map(url => url.trim()).filter(url => url)
-                : [];
+            const imagesArray = Array.isArray(formData.images) ? formData.images : [];
 
             const payload = {
                 title: formData.title,
@@ -144,14 +143,10 @@ export default function AddItems() {
                 </div>
 
                 <div className={styles.formGroup}>
-                    <label htmlFor="images">Image URLs (one per line)</label>
-                    <textarea
-                        id="images"
-                        name="images"
-                        value={formData.images}
-                        placeholder="https://example.com/image1.jpg&#10;https://example.com/image2.jpg"
-                        rows="3"
-                        onChange={handleChange}
+                    <label>Product Images</label>
+                    <ImageUpload 
+                        images={formData.images} 
+                        onChange={(newImages) => setFormData({ ...formData, images: newImages })}
                     />
                 </div>
                 <div className={styles.grid}>

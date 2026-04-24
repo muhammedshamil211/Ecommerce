@@ -1,0 +1,418 @@
+.uploadContainer {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.dropzone {
+    border: 2px dashed #e2e8f0;
+    border-radius: 16px;
+    padding: 2.5rem 1.5rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    background: #f8fafc;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    position: relative;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.dropzoneCompact {
+    padding: 1.25rem 1.5rem;
+    flex-direction: row;
+    justify-content: center;
+    gap: 1.5rem;
+}
+
+.dropzone:hover {
+    border-color: #3b82f6;
+    background: #eff6ff;
+    transform: translateY(-2px);
+}
+
+.dropzoneActive {
+    border-color: #3b82f6;
+    background: #eff6ff;
+    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+}
+
+.iconContainer {
+    width: 56px;
+    height: 56px;
+    background: white;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    color: #3b82f6;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+}
+
+.dropzoneCompact .iconContainer {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+}
+
+.dropzone:hover .iconContainer {
+    transform: scale(1.1) rotate(-5deg);
+}
+
+.uploadText {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.uploadText span:first-child {
+    font-weight: 600;
+    color: #1e293b;
+    font-size: 1rem;
+}
+
+.uploadText span:last-child {
+    color: #64748b;
+    font-size: 0.875rem;
+}
+
+.hiddenInput {
+    display: none;
+}
+
+/* Image Grid */
+.imageGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 1.25rem;
+}
+
+.imageItem {
+    position: relative;
+    aspect-ratio: 3/4;
+    border-radius: 16px;
+    overflow: hidden;
+    background: #f1f5f9;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    animation: fadeIn 0.4s ease-out backwards;
+}
+
+.previewImage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.imageItem:hover .previewImage {
+    transform: scale(1.1);
+}
+
+.removeBtn {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ef4444;
+    cursor: pointer;
+    opacity: 0;
+    transform: translateY(-5px);
+    transition: all 0.2s ease;
+    z-index: 10;
+}
+
+.imageItem:hover .removeBtn {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.removeBtn:hover {
+    background: #ef4444;
+    color: white;
+}
+
+/* Uploading State */
+.loadingOverlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(255, 255, 255, 0.7);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    z-index: 20;
+}
+
+.spinner {
+    width: 20px;
+    height: 20px;
+    border: 2px solid #e2e8f0;
+    border-top-color: #3b82f6;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+.spinnerIcon {
+    animation: spin 1s linear infinite;
+    color: #3b82f6;
+}
+
+/* Modal and Overlays */
+.modalOverlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    padding: 1rem;
+    animation: fadeIn 0.3s ease-out;
+}
+
+.modalContent {
+    background: white;
+    width: 100%;
+    max-width: 600px;
+    border-radius: 24px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+}
+
+.modalHeader {
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid #f1f5f9;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modalHeader h3 {
+    margin: 0;
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: #1e293b;
+}
+
+.closeBtn {
+    background: #f1f5f9;
+    border: none;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: #64748b;
+    transition: all 0.2s;
+}
+
+.closeBtn:hover {
+    background: #e2e8f0;
+    color: #1e293b;
+}
+
+/* Cropper Styles */
+.cropperContainer {
+    position: relative;
+    width: 100%;
+    height: 400px;
+    background: #000;
+}
+
+.modalFooter {
+    padding: 1.25rem 1.5rem;
+    background: #f8fafc;
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+}
+
+.btnPrimary, .btnSecondary {
+    padding: 0.625rem 1.5rem;
+    border-radius: 12px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btnPrimary {
+    background: #3b82f6;
+    color: white;
+    border: none;
+}
+
+.btnPrimary:hover {
+    background: #2563eb;
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+}
+
+.btnSecondary {
+    background: white;
+    color: #64748b;
+    border: 1px solid #e2e8f0;
+}
+
+.btnSecondary:hover {
+    background: #f1f5f9;
+    border-color: #cbd5e1;
+}
+
+/* Camera Styles */
+.cameraWrapper {
+    position: relative;
+    width: 100%;
+    background: #000;
+    overflow: hidden;
+}
+
+.webcam {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.cameraControls {
+    position: absolute;
+    bottom: 2rem;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    z-index: 10;
+}
+
+.captureBtn {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: white;
+    border: 5px solid rgba(255, 255, 255, 0.3);
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.captureBtn:hover {
+    transform: scale(1.1);
+}
+
+.captureBtn:active {
+    transform: scale(0.9);
+}
+
+.flipBtn {
+    background: rgba(0, 0, 0, 0.5);
+    border: none;
+    color: white;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    backdrop-filter: blur(4px);
+}
+
+/* Actions Section in UploadContainer */
+.uploadActions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.actionBtn {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.75rem;
+    border-radius: 12px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    color: #475569;
+}
+
+.actionBtn:hover {
+    background: #f1f5f9;
+    border-color: #cbd5e1;
+    color: #1e293b;
+}
+
+@media (max-width: 640px) {
+    .modalContent {
+        height: 100%;
+        max-height: none;
+        border-radius: 0;
+    }
+    
+    .cropperContainer {
+        flex: 1;
+        height: auto;
+    }
+
+    .modalFooter {
+        padding: 1rem;
+    }
+}
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+/* Progress Bar */
+.progressContainer {
+    width: 80%;
+    height: 4px;
+    background: #e2e8f0;
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.progressBar {
+    height: 100%;
+    background: #3b82f6;
+    transition: width 0.3s ease;
+}
+
+/* Mobile Adjustments */
+@media (max-width: 480px) {
+    .imageGrid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .dropzone {
+        padding: 1.5rem 1rem;
+    }
+}
