@@ -9,6 +9,8 @@ import helmet from "helmet";
 import compression from "compression";
 
 const app = express();
+app.set('trust proxy', 1); // Required for secure cookies on Render/Vercel
+
 
 // Middleware
 app.use(helmet());
